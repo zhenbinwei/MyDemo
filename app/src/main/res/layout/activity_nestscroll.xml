@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <com.example.weizhenbin.mydemo.widget.NestScrollingParentLayout
+      android:layout_width="match_parent"
+      android:orientation="vertical"
+      android:layout_height="match_parent">
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="300dp"
+          android:src="@mipmap/ic_launcher"/>
+      <com.example.weizhenbin.mydemo.widget.NestScrollingChildLayout
+          android:layout_width="match_parent"
+          android:layout_height="300dp"
+          android:background="#555"
+          />
+
+
+  </com.example.weizhenbin.mydemo.widget.NestScrollingParentLayout>
+</LinearLayout>

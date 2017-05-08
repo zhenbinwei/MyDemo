@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <Button
+       android:id="@+id/bt_test1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="测试一"/>
+   <Button
+       android:id="@+id/bt_test2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="测试二"/>
+   <Button
+       android:id="@+id/bt_test3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="测试三"/>
+   <Button
+       android:id="@+id/bt_test4"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="测试四"/>
+   <Button
+       android:id="@+id/bt_test5"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="测试五"/>
+</LinearLayout>

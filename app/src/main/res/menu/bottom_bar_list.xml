@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   <item android:id="@+id/item_char"
+       android:icon="@drawable/ic_subject_black_24dp"
+       android:title="最新"
+       ></item>
+    <item android:id="@+id/item_main"
+        android:icon="@drawable/ic_list_black_24dp"
+        android:title="福利"
+        ></item>
+    <item android:id="@+id/item_demos"
+        android:icon="@drawable/ic_list_black_24dp"
+        android:title="Demos"
+        ></item>
+    <item android:id="@+id/item_me"
+        android:icon="@drawable/ic_list_black_24dp"
+        android:title="我的"
+        ></item>
+
+</menu>

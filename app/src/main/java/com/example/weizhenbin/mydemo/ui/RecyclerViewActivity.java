@@ -1,8 +1,8 @@
 package com.example.weizhenbin.mydemo.ui;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
-import com.example.weizhenbin.mydemo.widget.SimpleRefeshHeader;
 import com.example.weizhenbin.mydemo.widget.refreshrecyclerview.ExpandRecyclerView;
 import com.example.weizhenbin.mydemo.widget.refreshrecyclerview.OnLoadListener;
 import com.example.weizhenbin.mydemo.widget.refreshrecyclerview.OnRefreshListener;
@@ -33,32 +32,20 @@ public class RecyclerViewActivity extends BaseActivity {
         setContentView(R.layout.activity_recyclerview);
         rvConetents= (ExpandRecyclerView) findViewById(R.id.rv_contents);
         //layoutManager=new GridLayoutManager(this,2);
-       // layoutManager=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
-        layoutManager=new LinearLayoutManager(this);
+        layoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+       // layoutManager=new LinearLayoutManager(this);
         rvConetents.setLayoutManager(layoutManager);
         rvConetents.setSupportPullRefresh(true);
         rvConetents.setSupportPullLoad(true);
-        for (int i=0;i<3;i++){
+        for (int i=0;i<23;i++){
             ss.add("字符初始"+i);
         }
         testAdapter=new TestAdapter(this,ss);
         rvConetents.setAdapter(testAdapter);
         View v=LayoutInflater.from(this).inflate(R.layout.test,null);
 
-        v.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.d("RecyclerViewActivity", "点击了");
-            }
-        });
-        rvConetents.addHeadView(new SimpleRefeshHeader(this));
-        rvConetents.addHeadView(v);
-        rvConetents.addHeadView(LayoutInflater.from(this).inflate(R.layout.test,null));
-        rvConetents.addHeadView(LayoutInflater.from(this).inflate(R.layout.test,null));
-        rvConetents.addFootView(LayoutInflater.from(this).inflate(R.layout.test,null));
         //rvConetents.addFootView(LayoutInflater.from(this).inflate(R.layout.test,null));
-        //rvConetents.addFootView(LayoutInflater.from(this).inflate(R.layout.test,null));
+         rvConetents.addFootView(LayoutInflater.from(this).inflate(R.layout.test,null));
         //rvConetents.addFootView(new SimpleLoadFooter(this));
         rvConetents.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -147,14 +134,5 @@ public class RecyclerViewActivity extends BaseActivity {
             textView= (TextView) itemView.findViewById(R.id.tv);
         }
     }
-    class HeaderHolder extends RecyclerView.ViewHolder{
-        public HeaderHolder(View itemView) {
-            super(itemView);
-        }
-    }
-    class FootHolder extends RecyclerView.ViewHolder{
-        public FootHolder(View itemView) {
-            super(itemView);
-        }
-    }
+
 }

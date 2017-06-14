@@ -2,6 +2,7 @@ package com.example.weizhenbin.mydemo.ui;
 
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
 import com.weizhenbin.show.R;
@@ -85,5 +86,23 @@ public class RxJavaTestActivity extends BaseActivity {
               });
           }
       });
+        findViewById(R.id.bt_test2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  WindowManager.LayoutParams layoutParams=new WindowManager.LayoutParams();
+                layoutParams.width = 200;
+                layoutParams.height =200;
+                layoutParams.format = PixelFormat.RGBA_8888;
+                getWindow().setAttributes(layoutParams);*/
+
+                WindowManager.LayoutParams layoutParams=getWindow().getAttributes();
+                layoutParams.width=200;
+                layoutParams.height=200;
+                layoutParams.dimAmount = 0.0f;
+                layoutParams.x=0;
+                layoutParams.y=0;
+                getWindow().setAttributes(layoutParams);
+            }
+        });
     }
 }

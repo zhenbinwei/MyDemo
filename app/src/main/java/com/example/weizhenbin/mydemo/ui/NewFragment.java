@@ -71,11 +71,11 @@ public class NewFragment extends BaseFragment implements View.OnClickListener{
         //category 后面可接受参数 all | Android | iOS | 休息视频 | 福利 | 拓展资源 | 前端 | 瞎推荐 | App
         //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端
         tabs.add("福利");
-        tabs.add("Android");
+       /* tabs.add("Android");
         tabs.add("iOS");
         tabs.add("休息视频");
         tabs.add("拓展资源");
-        tabs.add("前端");
+        tabs.add("前端");*/
     }
 
 

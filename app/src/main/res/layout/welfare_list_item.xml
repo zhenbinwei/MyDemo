@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="260dp">
    <ImageView
        android:id="@+id/iv_pic"
        android:layout_width="match_parent"
        android:scaleType="centerCrop"
-       android:layout_height="300dp" />
+       android:layout_height="260dp" />
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textSize="16sp"
         android:gravity="center"
-        android:text="试试"
         android:layout_alignParentBottom="true"
         android:textColor="@color/white"
         android:background="#73000000"/>
-    <com.example.weizhenbin.mydemo.widget.VideoPlayerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.example.weizhenbin.mydemo.widget.VideoPlayerView>
 </RelativeLayout>

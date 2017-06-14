@@ -1,6 +1,9 @@
 package com.example.weizhenbin.mydemo.ui;
 
+import android.app.WallpaperManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -18,6 +21,8 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WbAuthListener;
 import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
 import com.weizhenbin.show.R;
+
+import java.io.IOException;
 
 
 /**
@@ -185,6 +190,18 @@ public class DemosFragment extends BaseFragment {
                       Log.d("DemosFragment", "分享失败");
                   }
               });
+            }
+        });
+        linearlayout.addItem(11, "设置壁纸", R.mipmap.ic_launcher, 1, true, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WallpaperManager wallpaperManager=WallpaperManager.getInstance(getActivity());
+                Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.zhibo_xin_l);
+                try {
+                    wallpaperManager.setBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

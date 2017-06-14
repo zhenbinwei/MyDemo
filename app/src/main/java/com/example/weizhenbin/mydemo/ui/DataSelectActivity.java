@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
+import com.example.weizhenbin.mydemo.widget.MyNumPicker;
 import com.example.weizhenbin.mydemo.widget.WheelListView;
 import com.weizhenbin.show.R;
 
@@ -23,16 +24,20 @@ import java.util.List;
 public class DataSelectActivity extends BaseActivity {
     WheelListView wheelListView;
     List<String> data1;
+    MyNumPicker myNumPicker;
     @Override
     protected void initView() {
         setContentView(R.layout.activity_data_select);
         wheelListView= (WheelListView) findViewById(R.id.wlv);
+        myNumPicker= (MyNumPicker) findViewById(R.id.np);
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DataSelectActivity.this,"选中"+data1.get((wheelListView.selectPosition+1)%data1.size()),Toast.LENGTH_SHORT).show();
             }
         });
+        myNumPicker.setMinValue(0);
+        myNumPicker.setMaxValue(100);
     }
 
     @Override

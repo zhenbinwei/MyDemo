@@ -44,13 +44,6 @@ public class ExpandRecyclerView extends RecyclerView {
         this.context=context;
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        Log.d("ExpandRecyclerView", "onAttachedToWindow");
-    }
-
-
 
     public void setSupportPullRefresh(boolean supportPullRefresh) {
         this.supportPullRefresh = supportPullRefresh;
@@ -82,7 +75,6 @@ public class ExpandRecyclerView extends RecyclerView {
     public void addHeadView(View v) {
         if (expandAdapter != null && v != null) {
             expandAdapter.addHeadView(v);
-           // expandAdapter.notifyDataSetChanged();
         }
     }
 
@@ -136,6 +128,7 @@ public class ExpandRecyclerView extends RecyclerView {
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                Log.d("ExpandRecyclerView", "ACTION_UP");
                 if (refreshView instanceof BaseRefreshHeader&& refreshView.getParent() != null) {
                     ((BaseRefreshHeader) refreshView).loosen();
                 }else if(loadView instanceof BaseLoadFooter && loadView.getParent() != null){
@@ -172,6 +165,15 @@ public class ExpandRecyclerView extends RecyclerView {
 
     /**允许上拉操作*/
     private boolean allowPullup(){
+        if(loadView!=null) {
+            Log.d("ExpandRecyclerView", "loadView instanceof BaseLoadFooter:" + (loadView instanceof BaseLoadFooter));
+            Log.d("ExpandRecyclerView", "loadView.getParent():" + loadView.getParent());
+            Log.d("ExpandRecyclerView", "loadView.getBottom()==getLayoutManager().getHeight():" + (loadView.getBottom() == getLayoutManager().getHeight()));
+            Log.d("ExpandRecyclerView", "loadView.getBottom():" + loadView.getBottom());
+            Log.d("ExpandRecyclerView", "getLayoutManager().getHeight():" + getLayoutManager().getHeight());
+        }else {
+            Log.d("ExpandRecyclerView", "loadView:" + loadView);
+        }
         return loadView instanceof BaseLoadFooter
                 && loadView.getParent()!=null
                 && loadView.getBottom()==getLayoutManager().getHeight();

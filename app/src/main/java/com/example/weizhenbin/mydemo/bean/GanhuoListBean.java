@@ -7,34 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by weizhenbin on 2017/4/6.
+ * Created by weizhenbin on 2017/6/14.
  */
-public class WelfareBean {
 
-    /**
-     * error : false
-     * results : [{"_id":"58e5bd9c421aa90d6f211e3f","createdAt":"2017-04-06T12:01:32.576Z","desc":"4-6","publishedAt":"2017-04-06T12:06:10.17Z","source":"chrome","type":"福利","url":"http://7xi8d6.com1.z0.glb.clouddn.com/2017-04-06-17493825_1061197430652762_1457834104966873088_n.jpg","used":true,"who":"代码家"}]
-     */
-
+public class GanhuoListBean {
     public boolean error;
     public List<ResultsBean> results;
 
-    public static WelfareBean paseJsonData(JSONObject object){
+    public static GanhuoListBean paseJsonData(JSONObject object){
         if(object==null){
             return null;
         }
-        WelfareBean welfareBean=new WelfareBean();
-        welfareBean.error=object.optBoolean("error");
-        welfareBean.results=new ArrayList<>();
+        GanhuoListBean ganhuoListBean=new GanhuoListBean();
+        ganhuoListBean.error=object.optBoolean("error");
+        ganhuoListBean.results=new ArrayList<>();
         JSONArray jsonArray=object.optJSONArray("results");
         if(jsonArray!=null){
             for (int i = 0; i < jsonArray.length(); i++) {
-                welfareBean.results.add(ResultsBean.paseJsonData(jsonArray.optJSONObject(i)));
-
+                ganhuoListBean.results.add(ResultsBean.paseJsonData(jsonArray.optJSONObject(i)));
             }
         }
-        return welfareBean;
+        return ganhuoListBean;
     }
+
 
     public static class ResultsBean {
         /**
@@ -76,4 +71,7 @@ public class WelfareBean {
             return resultsBean;
         }
     }
+
+
+
 }

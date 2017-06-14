@@ -20,7 +20,6 @@ public class ExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     //创建头部view的集合
     public List<View> headViews = new ArrayList<>();
     public List<View> footViews = new ArrayList<>();
-    public List<View> footViewTemp=new ArrayList<>();
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
 
 
@@ -68,17 +67,6 @@ public class ExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
     }
-    public void addRefreshHeadView(BaseRefreshHeader v) {
-        if (headViews != null&&v !=null) {
-            if(headViews.size()>0&&headViews.get(0) instanceof BaseRefreshHeader){
-                headViews.remove(0);
-                headViews.add(0,v);
-            }else {
-                headViews.add(0,v);
-            }
-        }
-    }
-
     @Override
     public int getItemViewType(int position) {
         if (headViews.size() > 0&&position < headViews.size()) {
@@ -87,8 +75,9 @@ public class ExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (footViews.size() > 0&&position >= getItemCount() - footViews.size()) {
                 return position+ TPEY_COUNT_START_TAG;
         }
-        return adapter.getItemViewType(position);
+        return adapter.getItemViewType(position- headViews.size());
     }
+
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder)
     {
@@ -106,6 +95,16 @@ public class ExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         (StaggeredGridLayoutManager.LayoutParams) lp;
 
                 p.setFullSpan(true);
+            }
+        }
+    }
+    public void addRefreshHeadView(BaseRefreshHeader v) {
+        if (headViews != null&&v !=null) {
+            if(headViews.size()>0&&headViews.get(0) instanceof BaseRefreshHeader){
+                headViews.remove(0);
+                headViews.add(0,v);
+            }else {
+                headViews.add(0,v);
             }
         }
     }

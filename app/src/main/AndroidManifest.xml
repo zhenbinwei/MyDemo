@@ -23,6 +23,8 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"

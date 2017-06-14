@@ -32,15 +32,26 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType==11){
             return new GanhuoHolder(LayoutInflater.from(context).inflate(R.layout.welfare_list_item,parent,false));
+        }else if(viewType==12){
+            return new AndroidHolder(LayoutInflater.from(context).inflate(R.layout.android_list_item,parent,false));
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        GanhuoListBean.ResultsBean resultsBean=ganhuoBeanList.get(position);
            if(holder instanceof GanhuoHolder){
-               Glide.with(context).load(ganhuoBeanList.get(position).url).into(((GanhuoHolder)holder).ivPic);
-               ((GanhuoHolder)holder).tvContent.setText(ganhuoBeanList.get(position).who);
+               Glide.with(context).load(resultsBean.url).into(((GanhuoHolder)holder).ivPic);
+               ((GanhuoHolder)holder).tvContent.setText(resultsBean.who);
+           }else if(holder instanceof AndroidHolder){
+               ((AndroidHolder)holder).tvTitle.setText(resultsBean.desc);
+               if (resultsBean.images!=null&&resultsBean.images.size()>0){
+                   ((AndroidHolder)holder).ivPic.setVisibility(View.VISIBLE);
+                   Glide.with(context).load(resultsBean.images.get(0)).into(((AndroidHolder)holder).ivPic);
+               }else {
+                   ((AndroidHolder)holder).ivPic.setVisibility(View.GONE);
+               }
            }
     }
 
@@ -48,8 +59,10 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemViewType(int position) {
         if("福利".equals(ganhuoBeanList.get(position).type)){
             return 11;
+        }else if("Android".equals(ganhuoBeanList.get(position).type)){
+            return 12;
         }
-        return -1;
+        return super.getItemViewType(position);
     }
 
     @Override
@@ -64,6 +77,15 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
             ivPic= (ImageView) itemView.findViewById(R.id.iv_pic);
             tvContent= (TextView) itemView.findViewById(R.id.tv_content);
+        }
+    }
+    public class AndroidHolder extends RecyclerView.ViewHolder{
+        ImageView ivPic;
+        TextView tvTitle;
+        public AndroidHolder(View itemView) {
+            super(itemView);
+            ivPic= (ImageView) itemView.findViewById(R.id.iv_pic);
+            tvTitle= (TextView) itemView.findViewById(R.id.tv_title);
         }
     }
 }

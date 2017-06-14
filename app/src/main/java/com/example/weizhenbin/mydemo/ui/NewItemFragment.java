@@ -2,8 +2,8 @@ package com.example.weizhenbin.mydemo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +64,7 @@ public class NewItemFragment extends NewItemBaseFragment {
     @Override
     protected void initView(View view) {
         contentList= (ExpandRecyclerView) view.findViewById(R.id.content_list);
-        RecyclerView.LayoutManager layoutManager=new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity());
         contentList.setLayoutManager(layoutManager);
         contentList.setOnRefreshListener(new OnRefreshListener() {
             @Override

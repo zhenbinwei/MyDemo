@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.weizhenbin.mydemo.util.Tools;
 import com.example.weizhenbin.mydemo.widget.refreshrecyclerview.BaseRefreshHeader;
 import com.weizhenbin.show.R;
 
@@ -39,7 +40,7 @@ public class SimpleRefeshHeader extends BaseRefreshHeader {
 
     @Override
     protected int refreshHeight() {
-        return 120;
+        return Tools.dp2px(getContext(),60);
     }
 
     @Override

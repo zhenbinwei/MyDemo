@@ -53,7 +53,7 @@ public class GanhuoListBean {
         public String url;
         public boolean used;
         public String who;
-
+        public List<String> images;
         public static  ResultsBean paseJsonData(JSONObject object){
             if(object==null){
                 return null;
@@ -68,6 +68,13 @@ public class GanhuoListBean {
             resultsBean.url=object.optString("url");
             resultsBean.who=object.optString("who");
             resultsBean.used=object.optBoolean("used");
+            JSONArray jsonArray=object.optJSONArray("images") ;
+            if (jsonArray!=null){
+                resultsBean.images=new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    resultsBean.images.add(jsonArray.optString(i));
+                }
+            }
             return resultsBean;
         }
     }

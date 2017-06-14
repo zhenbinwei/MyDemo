@@ -165,21 +165,19 @@ public class ExpandRecyclerView extends RecyclerView {
 
     /**允许上拉操作*/
     private boolean allowPullup(){
-        if(loadView!=null) {
-            Log.d("ExpandRecyclerView", "loadView instanceof BaseLoadFooter:" + (loadView instanceof BaseLoadFooter));
-            Log.d("ExpandRecyclerView", "loadView.getParent():" + loadView.getParent());
-            Log.d("ExpandRecyclerView", "loadView.getBottom()==getLayoutManager().getHeight():" + (loadView.getBottom() == getLayoutManager().getHeight()));
-            Log.d("ExpandRecyclerView", "loadView.getBottom():" + loadView.getBottom());
-            Log.d("ExpandRecyclerView", "getLayoutManager().getHeight():" + getLayoutManager().getHeight());
-        }else {
-            Log.d("ExpandRecyclerView", "loadView:" + loadView);
-        }
+        Log.d("ExpandRecyclerView", "isSlideToBottom(this):" + isSlideToBottom(this));
         return loadView instanceof BaseLoadFooter
                 && loadView.getParent()!=null
-                && loadView.getBottom()==getLayoutManager().getHeight();
+                && loadView.getBottom()>=getLayoutManager().getHeight();
     }
 
-
+    public static boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
+    }
     public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
         supportPullRefresh=true;
         this.onRefreshListener = onRefreshListener;

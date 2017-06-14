@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.weizhenbin.mydemo.util.Tools;
 import com.example.weizhenbin.mydemo.widget.refreshrecyclerview.BaseLoadFooter;
 import com.weizhenbin.show.R;
 
@@ -38,7 +39,7 @@ public class SimpleLoadFooter extends BaseLoadFooter {
 
     @Override
     protected int loadHeight() {
-        return 120;
+        return Tools.dp2px(getContext(),60);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class SimpleLoadFooter extends BaseLoadFooter {
     @Override
     protected void loosenAndLoad() {
         progressBar.setVisibility(VISIBLE);
-        tv.setText("刷新...");
+        tv.setText("加载...");
     }
 
     @Override

@@ -25,10 +25,10 @@ public class CommonToolbar {
         }
     }
 
-    public static void addView(View view,View childView){
-        Toolbar toolbar= (Toolbar) view.findViewById(R.id.toolbar);
-        if(toolbar!=null&&childView!=null){
-            toolbar.addView(view);
-        }
+    public static Toolbar getToolBar(Activity activity){
+        return (Toolbar) activity.findViewById(R.id.toolbar);
+    }
+    public static Toolbar getToolBar(View view){
+        return  (Toolbar) view.findViewById(R.id.toolbar);
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/type"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/welfare"
+        android:checkable="true"
+        android:checked="true"
+        android:title="福利"/>
+    <item
+        android:id="@+id/news"
+        android:checkable="true"
+        android:title="新闻"/>
+    <item
+        android:id="@+id/music"
+        android:checkable="true"
+        android:title="音乐"/>
+    </group>
+    <group android:id="@+id/settings"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/setting"
+            android:checkable="false"
+            android:title="设置"/>
+        <item
+            android:id="@+id/about"
+            android:checkable="false"
+            android:title="关于"/>
+    </group>
+</menu>

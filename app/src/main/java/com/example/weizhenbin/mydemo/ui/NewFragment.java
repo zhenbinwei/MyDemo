@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import com.example.weizhenbin.mydemo.adapters.NewPageAdapter;
 import com.example.weizhenbin.mydemo.base.BaseFragment;
 import com.example.weizhenbin.mydemo.base.NewItemBaseFragment;
-import com.example.weizhenbin.mydemo.widget.CommonToolbar;
 import com.weizhenbin.show.R;
 
 import java.util.ArrayList;
@@ -31,6 +31,7 @@ public class NewFragment extends BaseFragment implements View.OnClickListener{
     ViewPager viewPager;
     List<NewItemBaseFragment> newItemBaseFragments=new ArrayList<>();
     List<String> tabs=new ArrayList<>();
+    Toolbar toolbar;
     @Override
     protected View setView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_new, null);
@@ -38,9 +39,10 @@ public class NewFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     protected void initView(View view) {
-        CommonToolbar.setTitle(view,"最新");
         tabLayout= (TabLayout) view.findViewById(R.id.tl_tags);
         viewPager= (ViewPager) view.findViewById(R.id.vp_content);
+        toolbar= (Toolbar) view.findViewById(R.id.tb);
+        toolbar.setTitle("首页");
         tabLayout.setupWithViewPager(viewPager,false);
         initTabs();
         for (int i = 0; i < tabs.size(); i++) {

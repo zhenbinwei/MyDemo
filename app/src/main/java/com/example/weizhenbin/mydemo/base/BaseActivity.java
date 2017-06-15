@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.weizhenbin.mydemo.common.ApplicationManage;
@@ -20,7 +20,7 @@ import com.weizhenbin.show.R;
  * @date 2016/2/24 9:29
  * 基础的Activity 所有Activity都要继承BaseActivity
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
 
     CoordinatorLayout coordinatorLayout;

@@ -48,7 +48,7 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                ((AndroidHolder)holder).tvTitle.setText(resultsBean.desc);
                if (resultsBean.images!=null&&resultsBean.images.size()>0){
                    ((AndroidHolder)holder).ivPic.setVisibility(View.VISIBLE);
-                   Glide.with(context).load(resultsBean.images.get(0)).into(((AndroidHolder)holder).ivPic);
+                   Glide.with(context).load(resultsBean.images.get(0)).asBitmap().into(((AndroidHolder)holder).ivPic);
                }else {
                    ((AndroidHolder)holder).ivPic.setVisibility(View.GONE);
                }

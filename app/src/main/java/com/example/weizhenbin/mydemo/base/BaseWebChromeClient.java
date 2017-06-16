@@ -9,15 +9,20 @@ import android.webkit.WebView;
 
 public  class BaseWebChromeClient extends WebChromeClient {
 
-    private int newProgress=0;
-
+   private IProgressChanged iProgressChanged;
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
         super.onProgressChanged(view, newProgress);
-        this.newProgress=newProgress;
+        if(iProgressChanged!=null){
+            iProgressChanged.onProgressChanged(view,newProgress);
+        }
     }
 
-    public int getNewProgress() {
-        return newProgress;
+    public void setiProgressChanged(IProgressChanged iProgressChanged) {
+        this.iProgressChanged = iProgressChanged;
+    }
+
+    public interface IProgressChanged{
+        void onProgressChanged(WebView view, int newProgress);
     }
 }

@@ -1,10 +1,8 @@
 package com.example.weizhenbin.mydemo.base;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -36,30 +34,16 @@ public class BaseWebView extends WebView {
 
         webSettings.setAllowFileAccess(true);
        // webSettings.setAllowUniversalAccessFromFileURLs(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-            webSettings.setAllowUniversalAccessFromFileURLs(true);
-
-
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
         baseWebChromeClient=new BaseWebChromeClient();
         setWebChromeClient(baseWebChromeClient);
         webSettings.setJavaScriptEnabled(true);
-        class JsObject {
-            public String toString() { return "injectedObject"; }
-
-            public Object requestAnimationFrame(){
-                return null;
-            }
-
-        }
-        addJavascriptInterface(new JsObject(), "injectedObject");
     }
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-        if(baseWebChromeClient.getNewProgress()>=100){
-            return;
+
+    public void setiProgressChanged(BaseWebChromeClient.IProgressChanged iProgressChanged) {
+        if (baseWebChromeClient!=null){
+            baseWebChromeClient.setiProgressChanged(iProgressChanged);
         }
-        canvas.drawRect(0,0,getWidth()*baseWebChromeClient.getNewProgress()/100,8,p);
     }
+
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.weizhenbin.mydemo.bean.GanhuoListBean;
+import com.example.weizhenbin.mydemo.ui.WebActivity;
 import com.weizhenbin.show.R;
 
 import java.util.List;
@@ -33,25 +34,38 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if(viewType==11){
             return new GanhuoHolder(LayoutInflater.from(context).inflate(R.layout.welfare_list_item,parent,false));
         }else if(viewType==12){
-            return new AndroidHolder(LayoutInflater.from(context).inflate(R.layout.android_list_item,parent,false));
+            return new CommonHolder(LayoutInflater.from(context).inflate(R.layout.common_list_item,parent,false));
+        }else{
+            return new CommonHolder(LayoutInflater.from(context).inflate(R.layout.common_list_item,parent,false));
         }
-        return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        GanhuoListBean.ResultsBean resultsBean=ganhuoBeanList.get(position);
+        final GanhuoListBean.ResultsBean resultsBean=ganhuoBeanList.get(position);
            if(holder instanceof GanhuoHolder){
                Glide.with(context).load(resultsBean.url).into(((GanhuoHolder)holder).ivPic);
                ((GanhuoHolder)holder).tvContent.setText(resultsBean.who);
-           }else if(holder instanceof AndroidHolder){
-               ((AndroidHolder)holder).tvTitle.setText(resultsBean.desc);
+               holder.itemView.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       WebActivity.startWeb(context,resultsBean.url);
+                   }
+               });
+           }else if(holder instanceof CommonHolder){
+               ((CommonHolder)holder).tvTitle.setText(resultsBean.desc);
                if (resultsBean.images!=null&&resultsBean.images.size()>0){
-                   ((AndroidHolder)holder).ivPic.setVisibility(View.VISIBLE);
-                   Glide.with(context).load(resultsBean.images.get(0)).asBitmap().into(((AndroidHolder)holder).ivPic);
+                   ((CommonHolder)holder).ivPic.setVisibility(View.VISIBLE);
+                   Glide.with(context).load(resultsBean.images.get(0)).asBitmap().into(((CommonHolder)holder).ivPic);
                }else {
-                   ((AndroidHolder)holder).ivPic.setVisibility(View.GONE);
+                   ((CommonHolder)holder).ivPic.setVisibility(View.GONE);
                }
+               holder.itemView.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       WebActivity.startWeb(context,resultsBean.url);
+                   }
+               });
            }
     }
 
@@ -59,7 +73,11 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemViewType(int position) {
         if("福利".equals(ganhuoBeanList.get(position).type)){
             return 11;
-        }else if("Android".equals(ganhuoBeanList.get(position).type)){
+        }else if("Android".equals(ganhuoBeanList.get(position).type)
+                ||"iOS".equals(ganhuoBeanList.get(position).type)
+                ||"前端".equals(ganhuoBeanList.get(position).type)
+                ||"休息视频".equals(ganhuoBeanList.get(position).type)
+                ||"拓展资源".equals(ganhuoBeanList.get(position).type)){
             return 12;
         }
         return super.getItemViewType(position);
@@ -79,10 +97,10 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             tvContent= (TextView) itemView.findViewById(R.id.tv_content);
         }
     }
-    public class AndroidHolder extends RecyclerView.ViewHolder{
+    public class CommonHolder extends RecyclerView.ViewHolder{
         ImageView ivPic;
         TextView tvTitle;
-        public AndroidHolder(View itemView) {
+        public CommonHolder(View itemView) {
             super(itemView);
             ivPic= (ImageView) itemView.findViewById(R.id.iv_pic);
             tvTitle= (TextView) itemView.findViewById(R.id.tv_title);

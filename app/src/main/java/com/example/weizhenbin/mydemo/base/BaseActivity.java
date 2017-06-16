@@ -35,9 +35,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(R.layout.activity_base_layout);
-        coordinatorLayout= (CoordinatorLayout) findViewById(R.id.base_layout);
-        if(coordinatorLayout!=null){
-            View.inflate(this,layoutResID,coordinatorLayout);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.base_layout);
+        if (coordinatorLayout != null) {
+            View.inflate(this, layoutResID, coordinatorLayout);
         }
     }
 

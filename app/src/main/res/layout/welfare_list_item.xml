@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false">
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="260dp">
+    android:layout_height="260dp"
+    >
    <ImageView
        android:id="@+id/iv_pic"
        android:layout_width="match_parent"
@@ -18,3 +27,4 @@
         android:textColor="@color/white"
         android:background="#73000000"/>
 </RelativeLayout>
+</android.support.v7.widget.CardView>

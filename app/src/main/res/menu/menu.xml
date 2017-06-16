@@ -4,10 +4,10 @@
         android:id="@+id/type"
         android:checkableBehavior="single">
     <item
-        android:id="@+id/welfare"
+        android:id="@+id/ganhuo"
         android:checkable="true"
         android:checked="true"
-        android:title="福利"/>
+        android:title="干货"/>
     <item
         android:id="@+id/news"
         android:checkable="true"

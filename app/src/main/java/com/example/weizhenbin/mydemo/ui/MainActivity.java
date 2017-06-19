@@ -16,9 +16,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
+import com.example.weizhenbin.mydemo.retrofit.IRequsetCallBack;
+import com.example.weizhenbin.mydemo.retrofit.RetrofitUtil;
 import com.example.weizhenbin.mydemo.widget.CommonToolbar;
 import com.weizhenbin.show.R;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 
 
@@ -82,6 +86,28 @@ public class MainActivity extends BaseActivity {
                 if(id==R.id.ganhuo||id==R.id.news||id==R.id.music){
                     item.setChecked(true);
                     toolbar.setTitle(item.getTitle());
+                    HashMap<String, String> parames=new HashMap<String, String>();
+                    parames.put("type","tiyu");
+                    try {
+                        new RetrofitUtil(RetrofitUtil.ReqType.ALI_NEWS).setUrl(URLDecoder.decode("/toutiao/index","utf-8")).setiRequsetCallBack(new IRequsetCallBack() {
+                            @Override
+                            public void requestStart() {
+
+                            }
+
+                            @Override
+                            public void requestFail() {
+
+                            }
+
+                            @Override
+                            public void requestSuccess(String s) {
+
+                            }
+                        }).setParames(parames).GET();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
                 return false;
             }

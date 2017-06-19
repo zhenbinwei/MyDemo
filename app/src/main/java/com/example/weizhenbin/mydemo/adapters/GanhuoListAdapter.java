@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.weizhenbin.mydemo.bean.GanhuoListBean;
+import com.example.weizhenbin.mydemo.presenter.ImageCheckControl;
 import com.example.weizhenbin.mydemo.ui.WebActivity;
 import com.weizhenbin.show.R;
 
@@ -41,7 +42,7 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final GanhuoListBean.ResultsBean resultsBean=ganhuoBeanList.get(position);
            if(holder instanceof GanhuoHolder){
                Glide.with(context).load(resultsBean.url).into(((GanhuoHolder)holder).ivPic);
@@ -49,7 +50,7 @@ public class GanhuoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                holder.itemView.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
-                       WebActivity.startWeb(context,resultsBean.url);
+                       ImageCheckControl.getCheckControl(context).openImageCheck(ganhuoBeanList,position);
                    }
                });
            }else if(holder instanceof CommonHolder){

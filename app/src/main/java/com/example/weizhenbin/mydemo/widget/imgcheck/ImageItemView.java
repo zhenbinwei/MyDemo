@@ -8,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.example.weizhenbin.mydemo.presenter.ImageCheckControl;
 import com.weizhenbin.show.R;
 
 /**
@@ -16,7 +20,7 @@ import com.weizhenbin.show.R;
 public class ImageItemView extends RelativeLayout {
     private TouchImageView touchImageView;
     private ProgressBar progressBar;
-
+    private Context context;
     public ImageItemView(Context context) {
         this(context,null);
     }
@@ -27,6 +31,7 @@ public class ImageItemView extends RelativeLayout {
 
     public ImageItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context=context;
         LayoutInflater.from(context).inflate(R.layout.page_item,this);
         touchImageView= (TouchImageView) findViewById(R.id.image_content);
         progressBar= (ProgressBar) findViewById(R.id.pb);
@@ -40,6 +45,18 @@ public class ImageItemView extends RelativeLayout {
     public void setImageBitmap(Bitmap imageBitmap){
         if(imageBitmap!=null){
             touchImageView.setImageBitmap(imageBitmap);
+        }
+    }
+
+    public void setImageUrl(ImageCheckControl.ImageInfo imageUrl){
+        if(imageUrl!=null){
+            Glide.with(context).load(imageUrl.getUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                   // touchImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    touchImageView.setImageBitmap(resource);
+                }
+            });
         }
     }
 

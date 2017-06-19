@@ -4,9 +4,14 @@ import android.util.Log;
 
 import com.example.weizhenbin.mydemo.config.AppUrl;
 
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,21 +24,68 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitUtil {
 
+
     private String baseUrl = AppUrl.GANk_HOST;
     private Retrofit retrofit;
     private AppService appService;
     private String url = "/";
     private Map<String, String> baseParames;
     private IRequsetCallBack iRequsetCallBack;
-    public RetrofitUtil() {
-        retrofit = new Retrofit.Builder().baseUrl(baseUrl)
-                .addConverterFactory(ScalarsConverterFactory.create())
+
+    public RetrofitUtil(ReqType reqType) {
+        if(reqType==ReqType.ALI_MUSIC){
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request.Builder builder1 = request.newBuilder();
+
+                        Request build = builder1.addHeader("Authorization","APPCODE "+AppUrl.ALI_CODE).build();
+
+                        return chain.proceed(build);
+                    }
+                }).retryOnConnectionFailure(true)
                 .build();
+            retrofit = new Retrofit.Builder().baseUrl(AppUrl.ALI_MUSIC_HOST)
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .client(client)
+                    .build();
+        }else if(reqType==ReqType.ALI_NEWS){
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public okhttp3.Response intercept(Chain chain) throws IOException {
+                            Request request = chain.request();
+                            Request.Builder builder1 = request.newBuilder();
+                            Request build = builder1
+                                    .addHeader("Authorization","APPCODE "+AppUrl.ALI_CODE)
+                                    .addHeader("X-Ca-Key","24301131")
+                                    .addHeader("Accept","application/json")
+                                    .addHeader("X-Ca-Stage","RELEASE")
+                                    .addHeader("X-Ca-Version","1")
+                                    .addHeader("gateway_channel","http")
+                                    .addHeader("Content-Type","application/json; charset=utf-8")
+                                    .build();
+                            return chain.proceed(build);
+                        }
+                    }).retryOnConnectionFailure(true)
+                    .build();
+            retrofit = new Retrofit.Builder().baseUrl(AppUrl.ALI_NEWS_HOST)
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .client(client)
+                    .build();
+        }else {
+            retrofit = new Retrofit.Builder().baseUrl(AppUrl.GANk_HOST)
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .build();
+        }
         appService = retrofit.create(AppService.class);
         baseParames = new HashMap<>();
     }
-
-
+    public RetrofitUtil() {
+        this(ReqType.COMMON);
+    }
     public RetrofitUtil setUrl(String url) {
         if (url != null && !url.equals("")) {
             if (url.contains(baseUrl)) {
@@ -64,7 +116,7 @@ public class RetrofitUtil {
             if(iRequsetCallBack!=null){
                 iRequsetCallBack.requestStart();
             }
-            Call<String> stringCall = appService.getResponse(url, baseParames);
+            Call<String> stringCall = appService.getResponse(URLDecoder.decode(url,"utf-8"), baseParames);
             stringCall.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
@@ -106,6 +158,10 @@ public class RetrofitUtil {
         }
     }
 
-
+   public enum ReqType {
+        ALI_NEWS,
+        ALI_MUSIC,
+        COMMON
+    }
 
 }

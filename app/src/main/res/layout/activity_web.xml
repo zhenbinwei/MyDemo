@@ -9,12 +9,9 @@
        android:layout_below="@+id/top_bar"
        android:layout_width="match_parent"
        android:layout_height="match_parent"/>
-   <ProgressBar
-       android:id="@+id/pb"
-       android:max="100"
-       android:progress="50"
+   <com.example.weizhenbin.mydemo.ui.WebProgressView
+       android:id="@+id/wpv_progress"
        android:layout_width="match_parent"
-       android:layout_below="@+id/top_bar"
-       style="?android:attr/progressBarStyleHorizontal"
-       android:layout_height="10dp" />
+       android:layout_height="2dp"
+       android:layout_below="@+id/top_bar"/>
 </RelativeLayout>

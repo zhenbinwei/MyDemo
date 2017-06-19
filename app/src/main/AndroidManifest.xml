@@ -108,6 +108,13 @@
             android:hardwareAccelerated="true"
             >
         </activity>
+        <activity android:name="com.example.weizhenbin.mydemo.ui.ImageCheckActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ColorTranslucentTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true"
+            >
+        </activity>
         <activity android:name="com.example.weizhenbin.mydemo.external.weibo.WBAuthEmptyActivity"
         android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name="com.example.weizhenbin.mydemo.external.weibo.WBShareEmptyActivity"

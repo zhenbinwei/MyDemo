@@ -17,6 +17,7 @@ public interface AppService {
     @POST("{url}")
     Call<String> postResponse(@Path("url") String url, @FieldMap Map<String, String> stringMap);
 
+
     @GET("{url}")
     Call<String> getResponse(@Path("url") String url, @QueryMap Map<String, String> stringMap);
 }

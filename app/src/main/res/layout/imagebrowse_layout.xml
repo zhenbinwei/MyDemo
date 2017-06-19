@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <com.example.admin.myapplication.ExtendedViewPager
+    <com.example.weizhenbin.mydemo.widget.imgcheck.ExtendedViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.example.admin.myapplication.ExtendedViewPager>
+    </com.example.weizhenbin.mydemo.widget.imgcheck.ExtendedViewPager>
     <TextView
         android:id="@+id/tv_point"
         android:layout_width="match_parent"

@@ -21,12 +21,13 @@ import com.example.weizhenbin.mydemo.retrofit.RetrofitUtil;
 import com.example.weizhenbin.mydemo.widget.CommonToolbar;
 import com.weizhenbin.show.R;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 
 
 public class MainActivity extends BaseActivity {
+    private static int TYPE_NEWS=1;
+    private static int TYPE_GANHUO=0;
+    private static int TYPE_MUSIC=2;
     NavigationView nvMenu;
     DrawerLayout dlContent;
     Toolbar toolbar;
@@ -35,7 +36,7 @@ public class MainActivity extends BaseActivity {
     HashMap<Integer,Fragment> fragmentHashMap=new HashMap<>();
     MenuItem menuItem;
     Fragment currentFragment;
-
+    HashMap<Integer,HashMap<Integer,Fragment>> allFragment=new HashMap<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +89,7 @@ public class MainActivity extends BaseActivity {
                     toolbar.setTitle(item.getTitle());
                     HashMap<String, String> parames=new HashMap<String, String>();
                     parames.put("type","tiyu");
-                    try {
-                        new RetrofitUtil(RetrofitUtil.ReqType.ALI_NEWS).setUrl(URLDecoder.decode("/toutiao/index","utf-8")).setiRequsetCallBack(new IRequsetCallBack() {
+                        new RetrofitUtil(RetrofitUtil.ReqType.ALI_NEWS).setUrl("/toutiao/index").setiRequsetCallBack(new IRequsetCallBack() {
                             @Override
                             public void requestStart() {
 
@@ -105,9 +105,6 @@ public class MainActivity extends BaseActivity {
 
                             }
                         }).setParames(parames).GET();
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
                 }
                 return false;
             }
@@ -155,4 +152,23 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
+
+
+    private HashMap<Integer,Fragment> getFragmentHashMapByType(int type){
+        HashMap<Integer,Fragment> fragmentHashMap;
+        if(allFragment!=null){
+            fragmentHashMap=allFragment.get(type);
+            if(fragmentHashMap!=null){
+                return fragmentHashMap;
+            }else {
+                fragmentHashMap=new HashMap<>();
+                return fragmentHashMap;
+            }
+        }else {
+            allFragment=new HashMap<>();
+            fragmentHashMap=new HashMap<>();
+            allFragment.put(type,fragmentHashMap);
+            return fragmentHashMap;
+        }
+    }
 }

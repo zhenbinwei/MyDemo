@@ -61,11 +61,6 @@ public class RetrofitUtil {
                             Request build = builder1
                                     .addHeader("Authorization","APPCODE "+AppUrl.ALI_CODE)
                                     .addHeader("X-Ca-Key","24301131")
-                                    .addHeader("Accept","application/json")
-                                    .addHeader("X-Ca-Stage","RELEASE")
-                                    .addHeader("X-Ca-Version","1")
-                                    .addHeader("gateway_channel","http")
-                                    .addHeader("Content-Type","application/json; charset=utf-8")
                                     .build();
                             return chain.proceed(build);
                         }

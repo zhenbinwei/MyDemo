@@ -19,5 +19,5 @@ public interface AppService {
 
 
     @GET("{url}")
-    Call<String> getResponse(@Path("url") String url, @QueryMap Map<String, String> stringMap);
+    Call<String> getResponse(@Path(value = "url",encoded = true) String url, @QueryMap Map<String, String> stringMap);
 }

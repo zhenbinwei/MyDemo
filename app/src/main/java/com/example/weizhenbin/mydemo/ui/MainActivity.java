@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     FrameLayout flContent;
     FragmentManager fragmentManager;
-    HashMap<Integer,Fragment> fragmentHashMap=new HashMap<>();
+    HashMap<Integer,Fragment> currentfragmentHashMap;
     MenuItem menuItem;
     Fragment currentFragment;
     HashMap<Integer,HashMap<Integer,Fragment>> allFragment=new HashMap<>();
@@ -65,9 +65,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        currentFragment=NewItemFragment.createFragment("all");
-        fragmentHashMap.put(R.id.item_all,currentFragment);
-        fragmentManager.beginTransaction().add(R.id.fl_content,currentFragment).commit();
+
     }
 
     @Override
@@ -83,19 +81,18 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 dlContent.closeDrawers();
                 int id=item.getItemId();
-                if(id==R.id.ganhuo||id==R.id.news||id==R.id.music){
-                    item.setChecked(true);
-                    toolbar.setTitle(item.getTitle());
-
-                }
                 switch (id){
                     case R.id.ganhuo:
                         currentType=TYPE_GANHUO;
                         invalidateOptionsMenu();
+                        item.setChecked(true);
+                        toolbar.setTitle(item.getTitle());
                         break;
                     case R.id.news:
                         currentType=TYPE_NEWS;
                         invalidateOptionsMenu();
+                        item.setChecked(true);
+                        toolbar.setTitle(item.getTitle());
                         break;
                     case R.id.music:
                         break;
@@ -111,10 +108,10 @@ public class MainActivity extends BaseActivity {
                 }
                  item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                  menuItem=item;
-                if(!fragmentHashMap.containsKey(item.getItemId())){
-                    fragmentHashMap.put(item.getItemId(),NewItemFragment.createFragment(item.getTitle().toString()));
+                if(!currentfragmentHashMap.containsKey(item.getItemId())){
+                    currentfragmentHashMap.put(item.getItemId(),NewItemFragment.createFragment(item.getTitle().toString()));
                 }
-                Fragment fragment=fragmentHashMap.get(item.getItemId());
+                Fragment fragment=currentfragmentHashMap.get(item.getItemId());
                 if(fragment!=null){
                     if(fragment==currentFragment){
                        return false;
@@ -146,9 +143,13 @@ public class MainActivity extends BaseActivity {
         }else if(currentType==TYPE_NEWS){
             getMenuInflater().inflate(R.menu.news_menu, menu);
         }
+        currentfragmentHashMap=getFragmentHashMapByType(currentType);
           if(toolbar.getMenu()!=null&&toolbar.getMenu().size()>0){
               menuItem = toolbar.getMenu().getItem(0);
           }
+        currentFragment=NewItemFragment.createFragment(menuItem.getTitle().toString());
+        currentfragmentHashMap.put(R.id.item_all,currentFragment);
+        fragmentManager.beginTransaction().add(R.id.fl_content,currentFragment).commit();
         return true;
     }
 

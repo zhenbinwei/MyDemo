@@ -69,28 +69,5 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-  /*  @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        Log.d("BaseActivity", "onSaveInstanceState1");
-    }
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-        Log.d("BaseActivity", "onRestoreInstanceState1");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("key","value");
-        Log.d("BaseActivity", "onSaveInstanceState0"+outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.d("BaseActivity", "onRestoreInstanceState0"+savedInstanceState);
-    }*/
 }

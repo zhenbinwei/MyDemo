@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
-import com.example.weizhenbin.mydemo.retrofit.IRequsetCallBack;
-import com.example.weizhenbin.mydemo.retrofit.RetrofitUtil;
 import com.example.weizhenbin.mydemo.widget.CommonToolbar;
 import com.weizhenbin.show.R;
 
@@ -37,6 +35,7 @@ public class MainActivity extends BaseActivity {
     MenuItem menuItem;
     Fragment currentFragment;
     HashMap<Integer,HashMap<Integer,Fragment>> allFragment=new HashMap<>();
+    private int currentType=TYPE_GANHUO;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,24 +86,19 @@ public class MainActivity extends BaseActivity {
                 if(id==R.id.ganhuo||id==R.id.news||id==R.id.music){
                     item.setChecked(true);
                     toolbar.setTitle(item.getTitle());
-                    HashMap<String, String> parames=new HashMap<String, String>();
-                    parames.put("type","tiyu");
-                        new RetrofitUtil(RetrofitUtil.ReqType.ALI_NEWS).setUrl("/toutiao/index").setiRequsetCallBack(new IRequsetCallBack() {
-                            @Override
-                            public void requestStart() {
 
-                            }
-
-                            @Override
-                            public void requestFail() {
-
-                            }
-
-                            @Override
-                            public void requestSuccess(String s) {
-
-                            }
-                        }).setParames(parames).GET();
+                }
+                switch (id){
+                    case R.id.ganhuo:
+                        currentType=TYPE_GANHUO;
+                        invalidateOptionsMenu();
+                        break;
+                    case R.id.news:
+                        currentType=TYPE_NEWS;
+                        invalidateOptionsMenu();
+                        break;
+                    case R.id.music:
+                        break;
                 }
                 return false;
             }
@@ -147,8 +141,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (currentType==TYPE_GANHUO){
             getMenuInflater().inflate(R.menu.ganhuo_menu, menu);
-            menuItem = toolbar.getMenu().getItem(0);
+        }else if(currentType==TYPE_NEWS){
+            getMenuInflater().inflate(R.menu.news_menu, menu);
+        }
+          if(toolbar.getMenu()!=null&&toolbar.getMenu().size()>0){
+              menuItem = toolbar.getMenu().getItem(0);
+          }
         return true;
     }
 

@@ -35,7 +35,7 @@ public class WebProgressView extends View {
 
     private void init(){
         paint=new Paint();
-        paint.setColor(getResources().getColor(R.color.colorPrimary));
+        paint.setColor(getResources().getColor(R.color.colorAccent));
     }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

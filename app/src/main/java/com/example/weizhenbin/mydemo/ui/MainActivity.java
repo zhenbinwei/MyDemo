@@ -118,7 +118,11 @@ public class MainActivity extends BaseActivity {
                  item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                  menuItem=item;
                 if(!currentfragmentHashMap.containsKey(item.getItemId())){
-                    currentfragmentHashMap.put(item.getItemId(),NewItemFragment.createFragment(item.getTitle().toString()));
+                    if(currentType==TYPE_GANHUO) {
+                        currentfragmentHashMap.put(item.getItemId(), GanhuoFragment.createFragment(item.getTitle().toString()));
+                    }else if(currentType==TYPE_NEWS) {
+                        currentfragmentHashMap.put(item.getItemId(), NewsFragment.createFragment(item.getItemId()));
+                    }
                 }
                 Fragment fragment=currentfragmentHashMap.get(item.getItemId());
                 if(fragment!=null){
@@ -133,7 +137,7 @@ public class MainActivity extends BaseActivity {
                         fragmentManager.beginTransaction().show(fragment).commit();
                     }
                 }else {
-                    fragment=NewItemFragment.createFragment(item.getTitle().toString());
+                    fragment= GanhuoFragment.createFragment(item.getTitle().toString());
                     if(currentFragment!=null&&currentFragment.isVisible()){
                         fragmentManager.beginTransaction().hide(fragment).commit();
                     }
@@ -160,9 +164,9 @@ public class MainActivity extends BaseActivity {
               fragmentManager.beginTransaction().hide(currentFragment).commit();
           }
         if (currentType==TYPE_GANHUO){
-            currentFragment=NewItemFragment.createFragment(menuItem.getTitle().toString());
+            currentFragment= GanhuoFragment.createFragment(menuItem.getTitle().toString());
         }else if(currentType==TYPE_NEWS){
-
+            currentFragment=NewsFragment.createFragment(menuItem.getItemId());
         }
        if (currentFragment!=null&&!currentFragment.isAdded()) {
            currentfragmentHashMap.put(menuItem.getItemId(), currentFragment);

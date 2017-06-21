@@ -11,7 +11,7 @@ public class AppUrl {
     public final static String GANk_HOST="http://gank.io/api/";
 
     /**新闻*/
-    public final static String ALI_NEWS_HOST="http://toutiao-ali.juheapi.com/";
+    public final static String  ALI_NEWS_HOST="http://jisunews.market.alicloudapi.com/";
     /**音乐*/
     public final static String ALI_MUSIC_HOST="";
 

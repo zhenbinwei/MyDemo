@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.weizhenbin.mydemo.adapters.GanhuoListAdapter;
-import com.example.weizhenbin.mydemo.base.NewItemBaseFragment;
+import com.example.weizhenbin.mydemo.base.GanhuoBaseFragment;
 import com.example.weizhenbin.mydemo.bean.GanhuoListBean;
 import com.example.weizhenbin.mydemo.retrofit.IRequestCallBackAdapter;
 import com.example.weizhenbin.mydemo.retrofit.RetrofitUtil;
@@ -29,7 +29,7 @@ import java.util.List;
  * Created by weizhenbin on 17/1/2.
  */
 
-public class NewItemFragment extends NewItemBaseFragment {
+public class GanhuoFragment extends GanhuoBaseFragment {
     ExpandRecyclerView contentList;
     String title;
     int page=1;
@@ -50,11 +50,11 @@ public class NewItemFragment extends NewItemBaseFragment {
 
     @Override
     protected View setView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.new_item_fragment,null);
+        return inflater.inflate(R.layout.ganhuo_fragment,null);
     }
 
-    public static NewItemFragment createFragment(String title){
-        NewItemFragment newItemFragment=new NewItemFragment();
+    public static GanhuoFragment createFragment(String title){
+        GanhuoFragment newItemFragment=new GanhuoFragment();
         Bundle bundle=new Bundle();
         bundle.putString("title",title);
         newItemFragment.setArguments(bundle);

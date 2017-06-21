@@ -4,7 +4,7 @@ package com.example.weizhenbin.mydemo.base;
  * Created by weizhenbin on 17/1/2.
  */
 
-public abstract class NewItemBaseFragment extends BaseFragment {
+public abstract class GanhuoBaseFragment extends BaseFragment {
 
 
 

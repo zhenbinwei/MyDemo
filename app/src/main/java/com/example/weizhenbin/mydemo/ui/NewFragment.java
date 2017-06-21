@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.weizhenbin.mydemo.adapters.NewPageAdapter;
 import com.example.weizhenbin.mydemo.base.BaseFragment;
-import com.example.weizhenbin.mydemo.base.NewItemBaseFragment;
+import com.example.weizhenbin.mydemo.base.GanhuoBaseFragment;
 import com.weizhenbin.show.R;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class NewFragment extends BaseFragment implements View.OnClickListener{
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    List<NewItemBaseFragment> newItemBaseFragments=new ArrayList<>();
+    List<GanhuoBaseFragment> ganhuoBaseFragments =new ArrayList<>();
     List<String> tabs=new ArrayList<>();
     Toolbar toolbar;
     @Override
@@ -46,9 +46,9 @@ public class NewFragment extends BaseFragment implements View.OnClickListener{
         tabLayout.setupWithViewPager(viewPager,false);
         initTabs();
         for (int i = 0; i < tabs.size(); i++) {
-            newItemBaseFragments.add(NewItemFragment.createFragment(tabs.get(i)));
+            ganhuoBaseFragments.add(GanhuoFragment.createFragment(tabs.get(i)));
         }
-        viewPager.setAdapter(new NewPageAdapter(getFragmentManager(),newItemBaseFragments,tabs));
+        viewPager.setAdapter(new NewPageAdapter(getFragmentManager(), ganhuoBaseFragments,tabs));
     }
 
     @Override

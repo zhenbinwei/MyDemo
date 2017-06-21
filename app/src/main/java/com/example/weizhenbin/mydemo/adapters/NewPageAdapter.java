@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.weizhenbin.mydemo.base.NewItemBaseFragment;
+import com.example.weizhenbin.mydemo.base.GanhuoBaseFragment;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
 
 public class NewPageAdapter extends FragmentPagerAdapter {
 
-    List<NewItemBaseFragment> fragments;
+    List<GanhuoBaseFragment> fragments;
     List<String> tabs;
-    public NewPageAdapter(FragmentManager fm,List<NewItemBaseFragment> fragments,List<String> tabs) {
+    public NewPageAdapter(FragmentManager fm, List<GanhuoBaseFragment> fragments, List<String> tabs) {
         super(fm);
         this.fragments=fragments;
         this.tabs=tabs;

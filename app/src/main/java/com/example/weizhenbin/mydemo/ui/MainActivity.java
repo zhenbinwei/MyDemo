@@ -83,12 +83,18 @@ public class MainActivity extends BaseActivity {
                 int id=item.getItemId();
                 switch (id){
                     case R.id.ganhuo:
+                        if(currentType==TYPE_GANHUO){
+                            break;
+                        }
                         currentType=TYPE_GANHUO;
                         invalidateOptionsMenu();
                         item.setChecked(true);
                         toolbar.setTitle(item.getTitle());
                         break;
                     case R.id.news:
+                        if(currentType==TYPE_NEWS){
+                            break;
+                        }
                         currentType=TYPE_NEWS;
                         invalidateOptionsMenu();
                         item.setChecked(true);
@@ -103,6 +109,9 @@ public class MainActivity extends BaseActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                if(menuItem==item){
+                    return false;
+                }
                 if(menuItem!=null){
                     menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
                 }
@@ -147,9 +156,18 @@ public class MainActivity extends BaseActivity {
           if(toolbar.getMenu()!=null&&toolbar.getMenu().size()>0){
               menuItem = toolbar.getMenu().getItem(0);
           }
-        currentFragment=NewItemFragment.createFragment(menuItem.getTitle().toString());
-        currentfragmentHashMap.put(R.id.item_all,currentFragment);
-        fragmentManager.beginTransaction().add(R.id.fl_content,currentFragment).commit();
+          if(currentFragment!=null&&currentFragment.isVisible()) {
+              fragmentManager.beginTransaction().hide(currentFragment).commit();
+          }
+        if (currentType==TYPE_GANHUO){
+            currentFragment=NewItemFragment.createFragment(menuItem.getTitle().toString());
+        }else if(currentType==TYPE_NEWS){
+
+        }
+       if (currentFragment!=null&&!currentFragment.isAdded()) {
+           currentfragmentHashMap.put(menuItem.getItemId(), currentFragment);
+           fragmentManager.beginTransaction().add(R.id.fl_content, currentFragment).commit();
+       }
         return true;
     }
 

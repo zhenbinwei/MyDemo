@@ -32,9 +32,9 @@ public class MusicServiceControl {
 
     }
 
-    public static void start(){
+    public static void start(String dataPath){
         try {
-            aidlService.start();
+            aidlService.start(dataPath);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

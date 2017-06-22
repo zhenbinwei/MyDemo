@@ -18,7 +18,7 @@ public class MusicActivity extends BaseActivity {
           findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicServiceControl.start();
+               // MusicServiceControl.start();
             }
           });
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {

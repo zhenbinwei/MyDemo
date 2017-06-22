@@ -28,10 +28,10 @@ public class MusicService extends Service {
 
    private class MusicBinder extends IMusicAidlInterface.Stub{
         @Override
-        public void start() throws RemoteException {
+        public void start(String dataPath) throws RemoteException {
             try {
                 mediaPlayer.reset();
-                mediaPlayer.setDataSource("http://ws.stream.qqmusic.qq.com/498307.m4a?fromtag=46");
+                mediaPlayer.setDataSource(dataPath);
                 mediaPlayer.prepareAsync();
             } catch (IOException e) {
                 e.printStackTrace();

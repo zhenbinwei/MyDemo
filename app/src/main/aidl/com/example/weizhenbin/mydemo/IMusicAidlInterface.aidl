@@ -6,7 +6,7 @@ import com.example.weizhenbin.mydemo.IMusicAidlCallback;
 
 interface IMusicAidlInterface {
 
-           void start();
+           void start(String dataPath);
 
            void pause();
 

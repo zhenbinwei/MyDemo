@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <!-- 榜行榜id 3=欧美 5=内地 6=港台 16=韩国 17=日本 18=民谣 19=摇滚 23=销量 26=热歌-->
+    <item
+        android:id="@+id/item_oumei"
+        android:title="欧美"
+        app:showAsAction="always"/>
+    <item android:title="内地"
+        android:id="@+id/item_neidi"/>
+    <item android:title="港台"
+        android:id="@+id/item_gangtai"/>
+    <item android:title="韩国"
+        android:id="@+id/item_hanguo"/>
+    <item android:title="日本"
+        android:id="@+id/item_riben"/>
+    <item android:title="民谣"
+        android:id="@+id/item_jiaoyu"/>
+    <item android:title="摇滚"
+        android:id="@+id/item_yaogun"/>
+    <item android:title="销量"
+        android:id="@+id/item_xiaoliang"/>
+    <item android:title="热歌"
+        android:id="@+id/item_rege"/>
+
+</menu>

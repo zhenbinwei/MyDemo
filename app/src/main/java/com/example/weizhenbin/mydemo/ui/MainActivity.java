@@ -101,7 +101,13 @@ public class MainActivity extends BaseActivity {
                         toolbar.setTitle(item.getTitle());
                         break;
                     case R.id.music:
-                        startActivity(new Intent(MainActivity.this,MusicActivity.class));
+                        if(currentType==TYPE_MUSIC){
+                            break;
+                        }
+                        currentType=TYPE_MUSIC;
+                        invalidateOptionsMenu();
+                        item.setChecked(true);
+                        toolbar.setTitle(item.getTitle());
                         break;
                 }
                 return false;
@@ -123,6 +129,8 @@ public class MainActivity extends BaseActivity {
                         currentfragmentHashMap.put(item.getItemId(), GanhuoFragment.createFragment(item.getTitle().toString()));
                     }else if(currentType==TYPE_NEWS) {
                         currentfragmentHashMap.put(item.getItemId(), NewsFragment.createFragment(item.getTitle().toString()));
+                    }else if(currentType==TYPE_MUSIC){
+                        currentfragmentHashMap.put(item.getItemId(), MusicFragment.createFragment(item.getTitle().toString()));
                     }
                 }
                 Fragment fragment=currentfragmentHashMap.get(item.getItemId());
@@ -137,12 +145,6 @@ public class MainActivity extends BaseActivity {
                     }else if(fragment.isHidden()){
                         fragmentManager.beginTransaction().show(fragment).commit();
                     }
-                }else {
-                    fragment= GanhuoFragment.createFragment(item.getTitle().toString());
-                    if(currentFragment!=null&&currentFragment.isVisible()){
-                        fragmentManager.beginTransaction().hide(fragment).commit();
-                    }
-                    fragmentManager.beginTransaction().add(R.id.fl_content,fragment).commit();
                 }
                 currentFragment=fragment;
                 return false;
@@ -170,6 +172,8 @@ public class MainActivity extends BaseActivity {
                 currentFragment = GanhuoFragment.createFragment(menuItem.getTitle().toString());
             } else if (currentType == TYPE_NEWS) {
                 currentFragment = NewsFragment.createFragment(menuItem.getTitle().toString());
+            }else if(currentType==TYPE_MUSIC){
+                currentFragment=MusicFragment.createFragment(menuItem.getTitle().toString());
             }
         }
        if (currentFragment!=null) {

@@ -13,7 +13,7 @@ public class AppUrl {
     /**新闻*/
     public final static String  ALI_NEWS_HOST="http://jisunews.market.alicloudapi.com/";
     /**音乐*/
-    public final static String ALI_MUSIC_HOST="";
+    public final static String ALI_MUSIC_HOST="http://ali-qqmusic.showapi.com/";
 
     public final static String ALI_CODE="d3101bc0f9604ec99d11aa2274985ef7";
 

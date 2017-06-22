@@ -33,22 +33,6 @@ public class MusicService extends Service {
                 mediaPlayer.reset();
                 mediaPlayer.setDataSource("http://ws.stream.qqmusic.qq.com/498307.m4a?fromtag=46");
                 mediaPlayer.prepareAsync();
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        mediaPlayer.start();
-                    }
-                });
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        try {
-                            mCallback.onComplete();
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -77,6 +61,22 @@ public class MusicService extends Service {
         super.onCreate();
         mediaPlayer=new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mediaPlayer.start();
+            }
+        });
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                try {
+                    mCallback.onComplete();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override

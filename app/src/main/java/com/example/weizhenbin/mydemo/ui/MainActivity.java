@@ -101,6 +101,7 @@ public class MainActivity extends BaseActivity {
                         toolbar.setTitle(item.getTitle());
                         break;
                     case R.id.music:
+                        startActivity(new Intent(MainActivity.this,MusicActivity.class));
                         break;
                 }
                 return false;
@@ -121,7 +122,7 @@ public class MainActivity extends BaseActivity {
                     if(currentType==TYPE_GANHUO) {
                         currentfragmentHashMap.put(item.getItemId(), GanhuoFragment.createFragment(item.getTitle().toString()));
                     }else if(currentType==TYPE_NEWS) {
-                        currentfragmentHashMap.put(item.getItemId(), NewsFragment.createFragment(item.getItemId()));
+                        currentfragmentHashMap.put(item.getItemId(), NewsFragment.createFragment(item.getTitle().toString()));
                     }
                 }
                 Fragment fragment=currentfragmentHashMap.get(item.getItemId());
@@ -163,14 +164,21 @@ public class MainActivity extends BaseActivity {
           if(currentFragment!=null&&currentFragment.isVisible()) {
               fragmentManager.beginTransaction().hide(currentFragment).commit();
           }
-        if (currentType==TYPE_GANHUO){
-            currentFragment= GanhuoFragment.createFragment(menuItem.getTitle().toString());
-        }else if(currentType==TYPE_NEWS){
-            currentFragment=NewsFragment.createFragment(menuItem.getItemId());
+        currentFragment=currentfragmentHashMap.get(menuItem.getItemId());
+        if(currentFragment==null) {
+            if (currentType == TYPE_GANHUO) {
+                currentFragment = GanhuoFragment.createFragment(menuItem.getTitle().toString());
+            } else if (currentType == TYPE_NEWS) {
+                currentFragment = NewsFragment.createFragment(menuItem.getTitle().toString());
+            }
         }
-       if (currentFragment!=null&&!currentFragment.isAdded()) {
-           currentfragmentHashMap.put(menuItem.getItemId(), currentFragment);
-           fragmentManager.beginTransaction().add(R.id.fl_content, currentFragment).commit();
+       if (currentFragment!=null) {
+           if(!currentFragment.isAdded()) {
+               currentfragmentHashMap.put(menuItem.getItemId(), currentFragment);
+               fragmentManager.beginTransaction().add(R.id.fl_content, currentFragment).commit();
+           }else {
+               fragmentManager.beginTransaction().show(currentFragment).commit();
+           }
        }
         return true;
     }
@@ -185,6 +193,7 @@ public class MainActivity extends BaseActivity {
                 return fragmentHashMap;
             }else {
                 fragmentHashMap=new HashMap<>();
+                allFragment.put(type,fragmentHashMap);
                 return fragmentHashMap;
             }
         }else {

@@ -124,6 +124,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>-->
         </activity>
+        <service android:name="com.example.weizhenbin.mydemo.presenter.MusicService"
+            android:process=":music"/>
+        <activity android:name="com.example.weizhenbin.mydemo.ui.MusicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ColorTranslucentTheme"
+            >
+        </activity>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

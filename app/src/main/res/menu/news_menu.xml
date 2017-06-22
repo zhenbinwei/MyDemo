@@ -1,30 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!-- 类型,,top(头条，默认),shehui(社会),guonei(国内),guoji(国际),
-    yule(娱乐),tiyu(体育)junshi(军事),
-    keji(科技),caijing(财经),
-    shishang(时尚)-->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <!-- "头条",
+        "新闻",
+        "财经",
+        "体育",
+        "娱乐",
+        "军事",
+        "教育",
+        "科技",
+        "NBA",
+        "股票",
+        "星座",
+        "女性",
+        "健康",
+        "育儿"-->
     <item
         android:id="@+id/item_top"
         android:title="头条"
         app:showAsAction="always"></item>
-    <item android:title="社会"
-        android:id="@+id/item_shehui"></item>
-    <item android:title="国内"
-        android:id="@+id/item_guonei"></item>
-    <item android:title="国际"
-        android:id="@+id/item_guoji"></item>
-    <item android:title="娱乐"
-        android:id="@+id/item_yule"></item>
-    <item android:title="体育"
-        android:id="@+id/item_tiyu"></item>
-    <item android:title="军事"
-        android:id="@+id/item_junshi"></item>
-    <item android:title="科技"
-        android:id="@+id/item_keji"></item>
+    <item android:title="新闻"
+        android:id="@+id/item_xinwen"></item>
     <item android:title="财经"
         android:id="@+id/item_caijing"></item>
-    <item android:title="时尚"
-        android:id="@+id/item_shishang"></item>
+    <item android:title="体育"
+        android:id="@+id/item_tiyu"></item>
+    <item android:title="娱乐"
+        android:id="@+id/item_yule"></item>
+    <item android:title="教育"
+        android:id="@+id/item_jiaoyu"></item>
+    <item android:title="科技"
+        android:id="@+id/item_keji"></item>
+    <item android:title="NBA"
+        android:id="@+id/item_nba"></item>
+    <item android:title="股票"
+        android:id="@+id/item_gupiao"></item>
+    <item android:title="星座"
+        android:id="@+id/item_xingzuo"></item>
+    <item android:title="女性"
+        android:id="@+id/item_nvxing"></item>
+    <item android:title="健康"
+        android:id="@+id/item_jiankang"></item>
+    <item android:title="育儿"
+        android:id="@+id/item_yuer"></item>
 </menu>

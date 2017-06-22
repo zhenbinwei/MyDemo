@@ -46,22 +46,22 @@ public class NewsFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments()!=null) {
-            type_id = (int) getArguments().get("type_id");
+            type = (String) getArguments().get("type");
         }
     }
 
-    public static NewsFragment createFragment(int type_id){
+    public static NewsFragment createFragment(String type){
         NewsFragment newsFragment=new NewsFragment();
         Bundle bundle=new Bundle();
-        bundle.putInt("type_id",type_id);
+        bundle.putString("type",type);
         newsFragment.setArguments(bundle);
         return newsFragment;
     }
 
     private void getData() {
         HashMap<String,String> parames=new HashMap<>();
-        parames.put("channel","头条");
-        parames.put("result",startIndex+"");
+        parames.put("channel",type);
+        parames.put("start",startIndex+"");
         new RetrofitUtil(RetrofitUtil.ReqType.ALI_NEWS).setUrl("news/get").setiRequsetCallBack(new IRequestCallBackAdapter(){
             @Override
             public void requestSuccess(String s) {
@@ -78,7 +78,7 @@ public class NewsFragment extends BaseFragment {
                     }
                     listBeen.addAll(todayNewsBean.result.list);
                     if(newsListAdapter==null){
-                        newsListAdapter= new NewsListAdapter(getActivity(),todayNewsBean.result.list);
+                        newsListAdapter= new NewsListAdapter(getActivity(),listBeen);
                         contentList.setAdapter(newsListAdapter);
                     }else {
                         newsListAdapter.notifyDataSetChanged();

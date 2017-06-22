@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets{
+        main{
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+        }
+    }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
         exclude 'META-INF/NOTICE' // will not include NOTICE file

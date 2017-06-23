@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="4dp"
     app:cardCornerRadius="0dp"
+    app:cardElevation="0.8dp"
     android:layout_marginRight="4dp">
 <RelativeLayout
     android:orientation="vertical" android:layout_width="match_parent"

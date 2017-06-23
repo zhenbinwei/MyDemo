@@ -6,6 +6,7 @@
     android:layout_height="260dp"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
+    app:cardCornerRadius="0dp"
     app:cardUseCompatPadding="true"
     app:cardPreventCornerOverlap="false">
 <RelativeLayout

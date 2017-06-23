@@ -158,6 +158,8 @@ public class MainActivity extends BaseActivity {
             getMenuInflater().inflate(R.menu.ganhuo_menu, menu);
         }else if(currentType==TYPE_NEWS){
             getMenuInflater().inflate(R.menu.news_menu, menu);
+        }else if(currentType==TYPE_MUSIC){
+            getMenuInflater().inflate(R.menu.music_menu, menu);
         }
         currentfragmentHashMap=getFragmentHashMapByType(currentType);
           if(toolbar.getMenu()!=null&&toolbar.getMenu().size()>0){

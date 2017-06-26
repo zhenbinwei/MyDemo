@@ -18,6 +18,8 @@ import com.example.weizhenbin.mydemo.IMusicAidlInterface;
 public class MusicServiceControl {
     private static MusicServiceControl serviceControl;
     private static IMusicAidlInterface aidlService;
+    private static boolean isInit=false;
+    private  MusicInfo musicInfo;
     private MusicServiceControl(){
     }
     public static void init(Context context){
@@ -29,20 +31,60 @@ public class MusicServiceControl {
             Intent intent=new Intent(context,MusicService.class);
             context.bindService(intent,new MusicConnection(),Context.BIND_AUTO_CREATE);
         }
-
+        isInit=true;
     }
 
-    public static void start(String dataPath){
+    public static MusicServiceControl getServiceControl() {
+        if(serviceControl==null){
+            throw new NullPointerException("没初始化");
+        }
+        return serviceControl;
+    }
+
+    public <T extends MusicInfo> void start(T t){
+        if(!isInit){
+            throw new IllegalArgumentException("没初始化");
+        }
+        if(t ==null){
+            throw new NullPointerException("信息不能为空");
+        }
+        musicInfo=t;
         try {
-            aidlService.start(dataPath);
+            aidlService.start(t.getDataPath());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
-    public static void pause(){
+    public  MusicInfo getMusicInfo() {
+        return musicInfo;
+    }
+
+    public  void pause(){
+        if(!isInit){
+            throw new IllegalArgumentException("没初始化");
+        }
         try {
             aidlService.pause();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getStatus(){
+        try {
+           return aidlService.getStatus();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    public static void reStart(){
+        if(!isInit){
+            throw new IllegalArgumentException("没初始化");
+        }
+        try {
+            aidlService.reStart();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -81,5 +123,10 @@ public class MusicServiceControl {
     }
 
 
+    public  interface MusicInfo{
+        String getSongname();
+        String getDataPath();
+        String getSingername();
+    }
 
 }

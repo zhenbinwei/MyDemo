@@ -11,4 +11,10 @@ interface IMusicAidlInterface {
            void pause();
 
            void setMusicCallback(IMusicAidlCallback callback);
+
+           int getStatus();
+
+           String getDataPath();
+
+           void reStart();
 }

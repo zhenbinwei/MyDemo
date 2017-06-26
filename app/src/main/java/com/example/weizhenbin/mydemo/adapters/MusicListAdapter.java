@@ -49,7 +49,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.News
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicServiceControl.start(listBean.url);
+                MusicServiceControl.getServiceControl().start(listBean);
             }
         });
 

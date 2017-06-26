@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.example.weizhenbin.mydemo.IMusicAidlCallback;
 import com.example.weizhenbin.mydemo.IMusicAidlInterface;
@@ -20,6 +21,13 @@ import java.io.IOException;
 public class MusicService extends Service {
     MediaPlayer mediaPlayer;
     IMusicAidlCallback mCallback;
+    public final static int STATUS_ISPLAYING=1;
+    public final static int STATUS_NO_INIT=-1;
+    public final static int STATUS_PAUSE=2;
+
+    public boolean isInit=false;
+
+    private String mDataPath;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -30,9 +38,11 @@ public class MusicService extends Service {
         @Override
         public void start(String dataPath) throws RemoteException {
             try {
+                mDataPath=dataPath;
                 mediaPlayer.reset();
                 mediaPlayer.setDataSource(dataPath);
                 mediaPlayer.prepareAsync();
+                isInit=true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -40,11 +50,9 @@ public class MusicService extends Service {
 
         @Override
         public void pause() throws RemoteException {
-            if(mediaPlayer!=null){
+            if(mediaPlayer!=null&&!TextUtils.isEmpty(mDataPath)){
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
-                }else {
-                    mediaPlayer.start();
                 }
             }
         }
@@ -54,7 +62,35 @@ public class MusicService extends Service {
             mCallback=callback;
         }
 
-    }
+       @Override
+       public int getStatus() throws RemoteException {
+           if(!isInit){
+               return STATUS_NO_INIT;
+           }else if(mediaPlayer!=null){
+               if(mediaPlayer.isPlaying()){
+                   return STATUS_ISPLAYING;
+               }else {
+                   return  STATUS_PAUSE;
+               }
+           }
+           return 0;
+       }
+
+       @Override
+       public String getDataPath() throws RemoteException {
+           return mDataPath;
+       }
+
+       @Override
+       public void reStart() throws RemoteException {
+           if(mediaPlayer!=null&&!TextUtils.isEmpty(mDataPath)){
+               if(!mediaPlayer.isPlaying()){
+                   mediaPlayer.start();
+               }
+           }
+       }
+
+   }
 
     @Override
     public void onCreate() {

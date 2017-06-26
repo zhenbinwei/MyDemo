@@ -1,5 +1,7 @@
 package com.example.weizhenbin.mydemo.bean;
 
+import com.example.weizhenbin.mydemo.presenter.MusicServiceControl;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -73,7 +75,7 @@ public class MusicListBean {
             }
 
 
-            public static class SonglistBean {
+            public static class SonglistBean implements MusicServiceControl.MusicInfo{
                 /**
                  * songname : 电台情歌 (《从你的全世界路过》电影电台版推广曲)
                  * seconds : 195
@@ -120,6 +122,21 @@ public class MusicListBean {
                    return songlistBean;
 
                }
+
+                @Override
+                public String getSongname() {
+                    return songname;
+                }
+
+                @Override
+                public String getDataPath() {
+                    return url;
+                }
+
+                @Override
+                public String getSingername() {
+                    return singername;
+                }
             }
         }
     }

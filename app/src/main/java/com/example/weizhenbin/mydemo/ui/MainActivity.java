@@ -9,17 +9,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
+import com.example.weizhenbin.mydemo.presenter.MusicServiceControl;
 import com.example.weizhenbin.mydemo.widget.CommonToolbar;
 import com.weizhenbin.show.R;
 
 import java.util.HashMap;
+
+import static com.example.weizhenbin.mydemo.presenter.MusicServiceControl.getServiceControl;
 
 
 public class MainActivity extends BaseActivity {
@@ -36,6 +42,9 @@ public class MainActivity extends BaseActivity {
     Fragment currentFragment;
     HashMap<Integer,HashMap<Integer,Fragment>> allFragment=new HashMap<>();
     private int currentType=TYPE_GANHUO;
+    private View nvHeadView;
+    private TextView tvSongname;
+    private ImageView ivPrevious,ivPlay,ivNext;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +70,17 @@ public class MainActivity extends BaseActivity {
         flContent= (FrameLayout) findViewById(R.id.fl_content);
         setSupportActionBar(toolbar);
         fragmentManager=getSupportFragmentManager();
+        nvHeadView=nvMenu.getHeaderView(0);
+        nvMenu.getHeaderView(0).findViewById(R.id.iv_play).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MainActivity", "play");
+            }
+        });
+        ivPrevious= (ImageView) nvHeadView.findViewById(R.id.iv_previous);
+        ivPlay= (ImageView) nvHeadView.findViewById(R.id.iv_play);
+        ivNext= (ImageView) nvHeadView.findViewById(R.id.iv_next);
+        tvSongname= (TextView) nvHeadView.findViewById(R.id.tv_songname);
     }
 
     @Override
@@ -74,6 +94,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dlContent.openDrawer(Gravity.LEFT);
+                if(getServiceControl().getMusicInfo()!=null) {
+                    tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
+                }
             }
         });
         nvMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

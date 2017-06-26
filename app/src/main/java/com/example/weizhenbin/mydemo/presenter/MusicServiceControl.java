@@ -79,7 +79,7 @@ public class MusicServiceControl {
         }
         return -1;
     }
-    public static void reStart(){
+    public  void reStart(){
         if(!isInit){
             throw new IllegalArgumentException("没初始化");
         }

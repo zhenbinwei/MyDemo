@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
+import com.example.weizhenbin.mydemo.presenter.MusicService;
 import com.example.weizhenbin.mydemo.presenter.MusicServiceControl;
 import com.example.weizhenbin.mydemo.widget.CommonToolbar;
 import com.weizhenbin.show.R;
@@ -81,6 +82,7 @@ public class MainActivity extends BaseActivity {
         ivPlay= (ImageView) nvHeadView.findViewById(R.id.iv_play);
         ivNext= (ImageView) nvHeadView.findViewById(R.id.iv_next);
         tvSongname= (TextView) nvHeadView.findViewById(R.id.tv_songname);
+
     }
 
     @Override
@@ -96,6 +98,11 @@ public class MainActivity extends BaseActivity {
                 dlContent.openDrawer(Gravity.LEFT);
                 if(getServiceControl().getMusicInfo()!=null) {
                     tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
+                    if(MusicServiceControl.getServiceControl().getStatus()==MusicService.STATUS_ISPLAYING){
+                        ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
+                    }else {
+                        ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
+                    }
                 }
             }
         });
@@ -171,6 +178,19 @@ public class MainActivity extends BaseActivity {
                 }
                 currentFragment=fragment;
                 return false;
+            }
+        });
+        ivPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MusicServiceControl.getServiceControl().getStatus()
+                        == MusicService.STATUS_ISPLAYING){
+                    MusicServiceControl.getServiceControl().pause();
+                    ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
+                }else {
+                    MusicServiceControl.getServiceControl().reStart();
+                    ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
+                }
             }
         });
     }

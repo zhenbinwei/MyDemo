@@ -49,7 +49,6 @@ public class ImageBrowse extends Fragment implements ViewPager.OnPageChangeListe
     private int itemCount = 0;
     private int currentPosition = 0;
     private TextView tvPoint;
-    private int[] images = {R.drawable.nature_1, R.drawable.nature_2, R.drawable.aaa1, R.drawable.nature_3, R.drawable.nature_4, R.drawable.nature_5};
     private int maxTexture = 0;
 
     @Nullable

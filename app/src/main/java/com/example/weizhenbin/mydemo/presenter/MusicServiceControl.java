@@ -11,15 +11,24 @@ import android.util.Log;
 import com.example.weizhenbin.mydemo.IMusicAidlCallback;
 import com.example.weizhenbin.mydemo.IMusicAidlInterface;
 
+import java.util.List;
+
 /**
  * Created by weizhenbin on 2017/6/22.
  */
 
 public class MusicServiceControl {
+    public static final int MODE_SINGE=1;
+    public static final int MODE_LIST=2;
+
+
     private static MusicServiceControl serviceControl;
     private static IMusicAidlInterface aidlService;
     private static boolean isInit=false;
-    private  MusicInfo musicInfo;
+    private  MusicInfo musicInfo;//单曲
+    private List<? extends MusicInfo> musicInfos;//播放列表
+
+    private int mCurrentIndex=0;
     private MusicServiceControl(){
     }
     public static void init(Context context){
@@ -39,6 +48,26 @@ public class MusicServiceControl {
             throw new NullPointerException("没初始化");
         }
         return serviceControl;
+    }
+
+    public void startList(List<? extends MusicInfo> list){
+        if(list!=null&&!list.isEmpty()){
+            this.musicInfos=list;
+            mCurrentIndex=0;
+            start(musicInfos.get(mCurrentIndex));
+        }
+    }
+    public void startList(List<? extends MusicInfo> list,int currentIndex){
+        if(list!=null&&!list.isEmpty()){
+            this.musicInfos=list;
+            if(currentIndex<list.size()) {
+                mCurrentIndex=currentIndex;
+                start(musicInfos.get(mCurrentIndex));
+            }else {
+                mCurrentIndex=0;
+                start(musicInfos.get(mCurrentIndex));
+            }
+        }
     }
 
     public <T extends MusicInfo> void start(T t){
@@ -68,6 +97,22 @@ public class MusicServiceControl {
             aidlService.pause();
         } catch (RemoteException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void next(){
+        mCurrentIndex++;
+         if(musicInfos!=null&&mCurrentIndex<musicInfos.size()-1){
+             musicInfo=musicInfos.get(mCurrentIndex);
+             start(musicInfo);
+         }
+    }
+
+    public void previous(){
+        mCurrentIndex--;
+        if(musicInfos!=null&&mCurrentIndex<musicInfos.size()&&mCurrentIndex>=0){
+            musicInfo=musicInfos.get(mCurrentIndex);
+            start(musicInfo);
         }
     }
 
@@ -104,6 +149,7 @@ public class MusicServiceControl {
                     @Override
                     public void onComplete() throws RemoteException {
                         Log.d("MusicConnection", "播放完成");
+                        serviceControl.next();
                     }
 
                     @Override

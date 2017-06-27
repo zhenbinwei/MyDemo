@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,8 +24,6 @@ import com.example.weizhenbin.mydemo.presenter.MusicServiceControl;
 import com.example.weizhenbin.mydemo.widget.CommonToolbar;
 import com.weizhenbin.show.R;
 
-import java.util.HashMap;
-
 import static com.example.weizhenbin.mydemo.presenter.MusicServiceControl.getServiceControl;
 
 
@@ -38,10 +36,10 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     FrameLayout flContent;
     FragmentManager fragmentManager;
-    HashMap<Integer,Fragment> currentfragmentHashMap;
+    SparseArray<Fragment> currentfragmentHashMap;
     MenuItem menuItem;
     Fragment currentFragment;
-    HashMap<Integer,HashMap<Integer,Fragment>> allFragment=new HashMap<>();
+    SparseArray<SparseArray<Fragment>> allFragment=new SparseArray<>();
     private int currentType=TYPE_GANHUO;
     private View nvHeadView;
     private TextView tvSongname;
@@ -72,12 +70,6 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         fragmentManager=getSupportFragmentManager();
         nvHeadView=nvMenu.getHeaderView(0);
-        nvMenu.getHeaderView(0).findViewById(R.id.iv_play).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("MainActivity", "play");
-            }
-        });
         ivPrevious= (ImageView) nvHeadView.findViewById(R.id.iv_previous);
         ivPlay= (ImageView) nvHeadView.findViewById(R.id.iv_play);
         ivNext= (ImageView) nvHeadView.findViewById(R.id.iv_next);
@@ -92,10 +84,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        dlContent.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public void onClick(View v) {
-                dlContent.openDrawer(Gravity.LEFT);
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
                 if(getServiceControl().getMusicInfo()!=null) {
                     tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
                     if(MusicServiceControl.getServiceControl().getStatus()==MusicService.STATUS_ISPLAYING){
@@ -104,6 +99,22 @@ public class MainActivity extends BaseActivity {
                         ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
                     }
                 }
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+            }
+
+            @Override
+            public void onDrawerStateChanged( int newState) {
+
+            }
+        });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dlContent.openDrawer(Gravity.LEFT);
+
             }
         });
         nvMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -154,7 +165,7 @@ public class MainActivity extends BaseActivity {
                 }
                  item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                  menuItem=item;
-                if(!currentfragmentHashMap.containsKey(item.getItemId())){
+                if(currentfragmentHashMap.get(item.getItemId())==null){
                     if(currentType==TYPE_GANHUO) {
                         currentfragmentHashMap.put(item.getItemId(), GanhuoFragment.createFragment(item.getTitle().toString()));
                     }else if(currentType==TYPE_NEWS) {
@@ -190,6 +201,25 @@ public class MainActivity extends BaseActivity {
                 }else {
                     MusicServiceControl.getServiceControl().reStart();
                     ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
+                }
+            }
+        });
+        ivNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicServiceControl.getServiceControl().next();
+                if(MusicServiceControl.getServiceControl().getMusicInfo()!=null) {
+                    tvSongname.setText(MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
+                }
+
+            }
+        });
+        ivPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicServiceControl.getServiceControl().previous();
+                if(MusicServiceControl.getServiceControl().getMusicInfo()!=null) {
+                    tvSongname.setText(MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
                 }
             }
         });
@@ -234,20 +264,20 @@ public class MainActivity extends BaseActivity {
 
 
 
-    private HashMap<Integer,Fragment> getFragmentHashMapByType(int type){
-        HashMap<Integer,Fragment> fragmentHashMap;
+    private SparseArray<Fragment> getFragmentHashMapByType(int type){
+        SparseArray<Fragment> fragmentHashMap;
         if(allFragment!=null){
             fragmentHashMap=allFragment.get(type);
             if(fragmentHashMap!=null){
                 return fragmentHashMap;
             }else {
-                fragmentHashMap=new HashMap<>();
+                fragmentHashMap=new SparseArray<>();
                 allFragment.put(type,fragmentHashMap);
                 return fragmentHashMap;
             }
         }else {
-            allFragment=new HashMap<>();
-            fragmentHashMap=new HashMap<>();
+            allFragment=new SparseArray<>();
+            fragmentHashMap=new SparseArray<>();
             allFragment.put(type,fragmentHashMap);
             return fragmentHashMap;
         }

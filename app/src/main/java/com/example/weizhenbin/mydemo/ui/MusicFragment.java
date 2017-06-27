@@ -2,7 +2,7 @@ package com.example.weizhenbin.mydemo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -108,7 +108,7 @@ public class MusicFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         contentList= (ExpandRecyclerView) view.findViewById(R.id.content_list);
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager=new GridLayoutManager(getActivity(),3);
         contentList.setLayoutManager(layoutManager);
        /* contentList.setOnRefreshListener(new OnRefreshListener() {
             @Override

@@ -50,4 +50,5 @@ dependencies {
     compile 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
     compile 'com.sina.weibo.sdk:core:2.0.1:openDefaultRelease@aar'
+    compile 'com.android.support:palette-v7:26.0.0-alpha1'
 }

@@ -17,8 +17,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <com.example.weizhenbin.mydemo.widget.MusicAnimIcon
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="30dp"
+            android:layout_marginRight="8dp"
+            android:layout_height="20dp" />
     <TextView
         android:id="@+id/tv_songname"
         android:layout_width="match_parent"

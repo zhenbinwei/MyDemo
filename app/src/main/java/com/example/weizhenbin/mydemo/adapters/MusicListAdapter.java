@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.weizhenbin.mydemo.bean.MusicListBean;
 import com.example.weizhenbin.mydemo.presenter.MusicServiceControl;
+import com.example.weizhenbin.mydemo.widget.MusicAnimIcon;
 import com.weizhenbin.show.R;
 
 import java.util.List;
@@ -56,8 +58,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.News
                         public void onGenerated(Palette palette) {
                             Palette.Swatch a = palette.getDominantSwatch();//getMutedSwatch();
                             if(a!=null) {
-                                holder.tvSongname.setBackgroundColor(a.getRgb());
-                                holder.tvSingername.setBackgroundColor(a.getRgb());
+                                holder.rlBg.setBackgroundColor(a.getRgb());
                             }
                         }
                     });
@@ -72,6 +73,16 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.News
         }else {
             holder.ivPic.setVisibility(View.GONE);
         }
+        if(MusicServiceControl.getServiceControl().getMusicInfo()!=null){
+            if(listBean.songid==MusicServiceControl.getServiceControl().getMusicInfo().getSongid()){
+                holder.maPlayTag.setVisibility(View.VISIBLE);
+            }else {
+                holder.maPlayTag.setVisibility(View.GONE);
+            }
+        }else {
+            holder.maPlayTag.setVisibility(View.GONE);
+        }
+
         holder.tvSingername.setText(listBean.singername);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +103,15 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.News
        TextView tvSongname;
        TextView tvSingername;
        ImageView ivPic;
+       RelativeLayout rlBg;
+       MusicAnimIcon maPlayTag;
         public NewsHolder(View itemView) {
             super(itemView);
             tvSongname= (TextView) itemView.findViewById(R.id.tv_songname);
             tvSingername= (TextView) itemView.findViewById(R.id.tv_singername);
             ivPic= (ImageView) itemView.findViewById(R.id.iv_pic);
+            rlBg= (RelativeLayout) itemView.findViewById(R.id.rl_bg);
+            maPlayTag= (MusicAnimIcon) itemView.findViewById(R.id.ma_play_tag);
         }
     }
 

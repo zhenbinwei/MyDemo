@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.weizhenbin.mydemo.adapters.MusicListAdapter;
 import com.example.weizhenbin.mydemo.base.BaseFragment;
 import com.example.weizhenbin.mydemo.bean.MusicListBean;
+import com.example.weizhenbin.mydemo.presenter.MusicServiceControl;
 import com.example.weizhenbin.mydemo.retrofit.IRequestCallBackAdapter;
 import com.example.weizhenbin.mydemo.retrofit.RetrofitUtil;
 import com.example.weizhenbin.mydemo.widget.refreshrecyclerview.ExpandRecyclerView;
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by weizhenbin on 17/6/21.
  */
 
-public class MusicFragment extends BaseFragment {
+public class MusicFragment extends BaseFragment implements MusicServiceControl.OnMusicChangeListener{
     ExpandRecyclerView contentList;
     int type_id;
     String type;
@@ -110,19 +111,7 @@ public class MusicFragment extends BaseFragment {
         contentList= (ExpandRecyclerView) view.findViewById(R.id.content_list);
         RecyclerView.LayoutManager layoutManager=new GridLayoutManager(getActivity(),3);
         contentList.setLayoutManager(layoutManager);
-       /* contentList.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                startIndex=0;
-                getData();
-            }
-        });
-        contentList.setOnLoadListener(new OnLoadListener() {
-            @Override
-            public void onLoad() {
-                getData();
-            }
-        });*/
+        MusicServiceControl.getServiceControl().addListener(this);
     }
 
     @Override
@@ -133,5 +122,18 @@ public class MusicFragment extends BaseFragment {
     @Override
     protected void initData() {
         getData();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MusicServiceControl.getServiceControl().removeListener(this);
+    }
+
+    @Override
+    public void onMusicChange() {
+        if(musicListAdapter!=null){
+            musicListAdapter.notifyDataSetChanged();
+        }
     }
 }

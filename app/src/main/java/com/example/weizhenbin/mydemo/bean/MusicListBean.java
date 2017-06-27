@@ -137,6 +137,11 @@ public class MusicListBean {
                 public String getSingername() {
                     return singername;
                 }
+
+                @Override
+                public int getSongid() {
+                    return songid;
+                }
             }
         }
     }

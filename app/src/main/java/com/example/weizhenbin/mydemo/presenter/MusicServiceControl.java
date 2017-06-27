@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.weizhenbin.mydemo.IMusicAidlCallback;
 import com.example.weizhenbin.mydemo.IMusicAidlInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,10 @@ public class MusicServiceControl {
     private List<? extends MusicInfo> musicInfos;//播放列表
 
     private int mCurrentIndex=0;
+
+    private List<OnMusicChangeListener> onMusicChangeListeners;
     private MusicServiceControl(){
+        onMusicChangeListeners=new ArrayList<>();
     }
     public static void init(Context context){
         if(context==null){
@@ -70,6 +74,17 @@ public class MusicServiceControl {
         }
     }
 
+    public void addListener(OnMusicChangeListener onMusicChangeListener){
+        if(onMusicChangeListeners!=null){
+            onMusicChangeListeners.add(onMusicChangeListener);
+        }
+    }
+    public void removeListener(OnMusicChangeListener onMusicChangeListener){
+        if(onMusicChangeListeners!=null){
+            onMusicChangeListeners.remove(onMusicChangeListener);
+        }
+    }
+
     public <T extends MusicInfo> void start(T t){
         if(!isInit){
             throw new IllegalArgumentException("没初始化");
@@ -83,6 +98,7 @@ public class MusicServiceControl {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        notifyChange();
     }
 
     public  MusicInfo getMusicInfo() {
@@ -105,7 +121,17 @@ public class MusicServiceControl {
          if(musicInfos!=null&&mCurrentIndex<musicInfos.size()-1){
              musicInfo=musicInfos.get(mCurrentIndex);
              start(musicInfo);
+
          }
+    }
+
+    private void notifyChange(){
+        if(onMusicChangeListeners!=null){
+            for (OnMusicChangeListener changeListener:onMusicChangeListeners
+                 ) {
+                changeListener.onMusicChange();
+            }
+        }
     }
 
     public void previous(){
@@ -113,6 +139,7 @@ public class MusicServiceControl {
         if(musicInfos!=null&&mCurrentIndex<musicInfos.size()&&mCurrentIndex>=0){
             musicInfo=musicInfos.get(mCurrentIndex);
             start(musicInfo);
+
         }
     }
 
@@ -173,6 +200,10 @@ public class MusicServiceControl {
         String getSongname();
         String getDataPath();
         String getSingername();
+        int getSongid();
     }
 
+    public interface OnMusicChangeListener{
+        void onMusicChange();
+    }
 }

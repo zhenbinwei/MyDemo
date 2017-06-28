@@ -14,8 +14,11 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.weizhenbin.mydemo.base.BaseActivity;
@@ -44,6 +47,7 @@ public class MainActivity extends BaseActivity {
     private View nvHeadView;
     private TextView tvSongname;
     private ImageView ivPrevious,ivPlay,ivNext;
+    LinearLayout llMusic;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +78,7 @@ public class MainActivity extends BaseActivity {
         ivPlay= (ImageView) nvHeadView.findViewById(R.id.iv_play);
         ivNext= (ImageView) nvHeadView.findViewById(R.id.iv_next);
         tvSongname= (TextView) nvHeadView.findViewById(R.id.tv_songname);
+        llMusic= (LinearLayout) nvHeadView.findViewById(R.id.ll_music);
 
     }
 
@@ -81,7 +86,19 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
 
     }
-
+  /*  private  ScaleAnimation moveToViewLocation() {
+        ScaleAnimation scaleAnimation=new ScaleAnimation(0.1f, 1.0f, 0.1f, 1f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f);
+        scaleAnimation.setDuration(500);
+        return scaleAnimation;
+    }*/
+    private TranslateAnimation moveToViewLocation() {
+        TranslateAnimation transformation=new TranslateAnimation( Animation.RELATIVE_TO_SELF,-1,Animation.RELATIVE_TO_SELF,0,
+                Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
+        transformation.setDuration(500);
+        return transformation;
+    }
     @Override
     protected void initEvent() {
         dlContent.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -92,12 +109,18 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 if(getServiceControl().getMusicInfo()!=null) {
+                    if(llMusic.getVisibility()==View.GONE){
+                        llMusic.startAnimation(moveToViewLocation());
+                        llMusic.setVisibility(View.VISIBLE);
+                    }
                     tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
                     if(MusicServiceControl.getServiceControl().getStatus()==MusicService.STATUS_ISPLAYING){
                         ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
                     }else {
                         ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
                     }
+                }else {
+                    llMusic.setVisibility(View.GONE);
                 }
             }
 

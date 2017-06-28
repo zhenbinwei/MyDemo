@@ -2,10 +2,6 @@ package com.example.weizhenbin.mydemo.baidumap;
 
 import android.content.Context;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.example.weizhenbin.mydemo.bean.LocationInfo;
 
 import java.util.ArrayList;
@@ -22,16 +18,16 @@ import java.util.ArrayList;
 public class BaiduLocationManage {
 
     private static BaiduLocationManage instance;
-    public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyLocationListener();
+  //  public LocationClient mLocationClient = null;
+  //  public BDLocationListener myListener = new MyLocationListener();
     public ArrayList<OnLocationInfoListener> listeners;
     private LocationInfo locationInfo;
 
     private BaiduLocationManage(Context context) {
         listeners = new ArrayList<>();
-        mLocationClient = new LocationClient(context);     //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);    //注册监听函数
-        initLocation();
+    //    mLocationClient = new LocationClient(context);     //声明LocationClient类
+     //   mLocationClient.registerLocationListener(myListener);    //注册监听函数
+      //  initLocation();
     }
 
 
@@ -42,7 +38,7 @@ public class BaiduLocationManage {
         return instance;
     }
 
-    private void initLocation() {
+   /* private void initLocation() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
@@ -58,9 +54,9 @@ public class BaiduLocationManage {
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
         mLocationClient.setLocOption(option);
-    }
+    }*/
 
-    public void startLocation() {
+  /*  public void startLocation() {
         if (mLocationClient != null) {
             mLocationClient.start();
         }
@@ -98,7 +94,7 @@ public class BaiduLocationManage {
                 }
             }
 
-            /*StringBuffer sb = new StringBuffer(256);
+            *//*StringBuffer sb = new StringBuffer(256);
             sb.append("time : ");
             sb.append(location.getTime());
             sb.append("\nerror code : ");
@@ -157,9 +153,9 @@ public class BaiduLocationManage {
                     sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
                 }
             }
-            Log.i("BaiduLocationApiDem", sb.toString());*/
+            Log.i("BaiduLocationApiDem", sb.toString());*//*
         }
-    }
+    }*/
 
     public interface OnLocationInfoListener {
         void onLocation(LocationInfo info);

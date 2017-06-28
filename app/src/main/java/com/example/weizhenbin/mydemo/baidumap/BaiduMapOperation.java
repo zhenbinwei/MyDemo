@@ -1,10 +1,5 @@
 package com.example.weizhenbin.mydemo.baidumap;
 
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.TextureMapView;
-import com.baidu.mapapi.model.LatLng;
-
 /**
  * @author zhenbinwei   (作者)
  * @version V1.0
@@ -16,7 +11,7 @@ import com.baidu.mapapi.model.LatLng;
  */
 public class BaiduMapOperation {
 
-    public static void showZoomControls(TextureMapView textureMapView, boolean show) {
+  /*  public static void showZoomControls(TextureMapView textureMapView, boolean show) {
         if (textureMapView != null) {
             textureMapView.showZoomControls(show);
         }
@@ -38,5 +33,5 @@ public class BaiduMapOperation {
 
     public static void newLatLngZoom(BaiduMap baiduMap,LatLng latLng, float zoom){
         baiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLngZoom(latLng,zoom));
-    }
+    }*/
 }

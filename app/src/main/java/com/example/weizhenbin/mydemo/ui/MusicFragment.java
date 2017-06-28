@@ -132,8 +132,14 @@ public class MusicFragment extends BaseFragment implements MusicServiceControl.O
 
     @Override
     public void onMusicChange() {
-        if(musicListAdapter!=null){
-            musicListAdapter.notifyDataSetChanged();
+        if(musicListAdapter!=null&&getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    musicListAdapter.notifyItemChanged(MusicServiceControl.getServiceControl().getPreviousIndex(),"aa");
+                    musicListAdapter.notifyItemChanged(MusicServiceControl.getServiceControl().getCurrentIndex(),"aa");
+                }
+            });
         }
     }
 }

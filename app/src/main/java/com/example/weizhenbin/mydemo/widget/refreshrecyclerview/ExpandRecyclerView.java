@@ -234,7 +234,7 @@ public class ExpandRecyclerView extends RecyclerView {
 
         @Override
         public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
-            expandAdapter.notifyItemRangeChanged(positionStart, itemCount);
+            expandAdapter.notifyItemRangeChanged(positionStart, itemCount,payload);
         }
 
         @Override

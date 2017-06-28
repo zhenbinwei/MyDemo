@@ -61,9 +61,10 @@
 
             <com.example.weizhenbin.mydemo.widget.MusicAnimIcon
                 android:id="@+id/ma_play_tag"
-                android:layout_width="30dp"
                 android:layout_height="20dp"
-
+                android:layout_width="24dp"
+                app:column_count="3"
+                app:column_space="1.5dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>

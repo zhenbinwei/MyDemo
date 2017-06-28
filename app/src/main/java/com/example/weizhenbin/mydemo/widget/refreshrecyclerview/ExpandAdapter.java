@@ -148,6 +148,18 @@ public class ExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List<Object> payloads) {
+        if(payloads.isEmpty()){
+            onBindViewHolder(holder,position);
+        }else {
+            if(holder instanceof FootHolder ||holder instanceof HeaderHolder){
+                return;
+            }
+            adapter.onBindViewHolder(holder, position-(headViews.size()), payloads);
+        }
+    }
+
+    @Override
     public int getItemCount() {
         return adapter.getItemCount() + headViews.size() + footViews.size();
     }

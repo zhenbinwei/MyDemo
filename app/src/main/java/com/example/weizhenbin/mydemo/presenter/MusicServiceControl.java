@@ -29,6 +29,8 @@ public class MusicServiceControl {
     private  MusicInfo musicInfo;//单曲
     private List<? extends MusicInfo> musicInfos;//播放列表
 
+    private int previousIndex=0;
+
     private int mCurrentIndex=0;
 
     private List<OnMusicChangeListener> onMusicChangeListeners;
@@ -57,17 +59,29 @@ public class MusicServiceControl {
     public void startList(List<? extends MusicInfo> list){
         if(list!=null&&!list.isEmpty()){
             this.musicInfos=list;
+            previousIndex=mCurrentIndex;
             mCurrentIndex=0;
             start(musicInfos.get(mCurrentIndex));
         }
     }
-    public void startList(List<? extends MusicInfo> list,int currentIndex){
+
+    public int getPreviousIndex() {
+        return previousIndex;
+    }
+
+    public int getCurrentIndex() {
+        return mCurrentIndex;
+    }
+
+    public void startList(List<? extends MusicInfo> list, int currentIndex){
         if(list!=null&&!list.isEmpty()){
             this.musicInfos=list;
             if(currentIndex<list.size()) {
+                previousIndex=mCurrentIndex;
                 mCurrentIndex=currentIndex;
                 start(musicInfos.get(mCurrentIndex));
             }else {
+                previousIndex=mCurrentIndex;
                 mCurrentIndex=0;
                 start(musicInfos.get(mCurrentIndex));
             }
@@ -117,6 +131,7 @@ public class MusicServiceControl {
     }
 
     public void next(){
+        previousIndex=mCurrentIndex;
         mCurrentIndex++;
          if(musicInfos!=null&&mCurrentIndex<musicInfos.size()-1){
              musicInfo=musicInfos.get(mCurrentIndex);
@@ -135,6 +150,7 @@ public class MusicServiceControl {
     }
 
     public void previous(){
+        previousIndex=mCurrentIndex;
         mCurrentIndex--;
         if(musicInfos!=null&&mCurrentIndex<musicInfos.size()&&mCurrentIndex>=0){
             musicInfo=musicInfos.get(mCurrentIndex);

@@ -1,12 +1,5 @@
 package com.example.weizhenbin.mydemo.baidumap;
 
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * @author zhenbinwei   (作者)
  * @version V1.0
@@ -18,7 +11,7 @@ import java.util.HashMap;
  */
 public class BaiduMapMarkerManage {
 
-    private static BaiduMapMarkerManage instance;
+  /*  private static BaiduMapMarkerManage instance;
     //用来存放覆盖物 基于不同的界面 已类名键值做索引
     private HashMap<String,ArrayList<OverlayOptions>> overlayOptionses;
     private BaiduMapMarkerManage(){
@@ -86,5 +79,5 @@ public class BaiduMapMarkerManage {
             releaseMarker(baiduMap,strings.remove(i));
         }
         overlayOptionses.clear();
-    }
+    }*/
 }

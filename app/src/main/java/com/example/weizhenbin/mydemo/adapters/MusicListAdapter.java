@@ -43,6 +43,25 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.News
     }
 
     @Override
+    public void onBindViewHolder(NewsHolder holder, int position, List<Object> payloads) {
+        if(payloads.isEmpty()){
+            onBindViewHolder(holder,position);
+        }else {
+            if(position<listBeen.size()){
+                if(MusicServiceControl.getServiceControl().getMusicInfo()!=null){
+                    if(listBeen.get(position).songid==MusicServiceControl.getServiceControl().getMusicInfo().getSongid()){
+                        holder.maPlayTag.setVisibility(View.VISIBLE);
+                    }else {
+                        holder.maPlayTag.setVisibility(View.GONE);
+                    }
+                }else {
+                    holder.maPlayTag.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
+
+    @Override
     public void onBindViewHolder(final NewsHolder holder, final int position) {
         final MusicListBean.ShowapiResBodyBean.PagebeanBean.SonglistBean listBean=listBeen.get(position);
         holder.tvSongname.setText(listBean.songname);

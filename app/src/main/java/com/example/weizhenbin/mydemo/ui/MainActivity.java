@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
 
     }
-  /*  private  ScaleAnimation moveToViewLocation() {
+   /*  private  ScaleAnimation moveToViewLocation() {
         ScaleAnimation scaleAnimation=new ScaleAnimation(0.1f, 1.0f, 0.1f, 1f,
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
                 0.0f);

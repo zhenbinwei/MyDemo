@@ -30,7 +30,7 @@ import com.weizhenbin.show.R;
 import static com.example.weizhenbin.mydemo.presenter.MusicServiceControl.getServiceControl;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MusicServiceControl.OnMusicChangeListener{
     private static int TYPE_NEWS=1;
     private static int TYPE_GANHUO=0;
     private static int TYPE_MUSIC=2;
@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity {
         ivNext= (ImageView) nvHeadView.findViewById(R.id.iv_next);
         tvSongname= (TextView) nvHeadView.findViewById(R.id.tv_songname);
         llMusic= (LinearLayout) nvHeadView.findViewById(R.id.ll_music);
-
+        MusicServiceControl.getServiceControl().addListener(this);
     }
 
     @Override
@@ -112,12 +112,6 @@ public class MainActivity extends BaseActivity {
                     if(llMusic.getVisibility()==View.GONE){
                         llMusic.startAnimation(moveToViewLocation());
                         llMusic.setVisibility(View.VISIBLE);
-                    }
-                    tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
-                    if(MusicServiceControl.getServiceControl().getStatus()==MusicService.STATUS_ISPLAYING){
-                        ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
-                    }else {
-                        ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
                     }
                 }else {
                     llMusic.setVisibility(View.GONE);
@@ -304,5 +298,29 @@ public class MainActivity extends BaseActivity {
             allFragment.put(type,fragmentHashMap);
             return fragmentHashMap;
         }
+    }
+
+    @Override
+    public void onMusicChange() {
+        if(getServiceControl().getMusicInfo()!=null) {
+            if(llMusic.getVisibility()==View.GONE){
+                llMusic.startAnimation(moveToViewLocation());
+                llMusic.setVisibility(View.VISIBLE);
+            }
+            tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
+            if(MusicServiceControl.getServiceControl().getStatus()==MusicService.STATUS_ISPLAYING){
+                ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
+            }else {
+                ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
+            }
+        }else {
+            llMusic.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MusicServiceControl.getServiceControl().removeListener(this);
     }
 }

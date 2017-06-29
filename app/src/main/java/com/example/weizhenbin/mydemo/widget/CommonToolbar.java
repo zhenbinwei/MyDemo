@@ -1,9 +1,11 @@
 package com.example.weizhenbin.mydemo.widget;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.weizhenbin.mydemo.util.Tools;
 import com.weizhenbin.show.R;
 
 /**
@@ -26,9 +28,18 @@ public class CommonToolbar {
     }
 
     public static Toolbar getToolBar(Activity activity){
-        return (Toolbar) activity.findViewById(R.id.toolbar);
+        //return (Toolbar) activity.findViewById(R.id.toolbar);
+        Toolbar toolbar= (Toolbar) activity.findViewById(R.id.toolbar);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setPadding(0, Tools.getStatusBarHeight(activity), 0, 0);
+        }
+        return toolbar;
     }
     public static Toolbar getToolBar(View view){
-        return  (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar toolbar= (Toolbar) view.findViewById(R.id.toolbar);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setPadding(0, Tools.getStatusBarHeight(view.getContext()), 0, 0);
+        }
+        return  toolbar;
     }
 }

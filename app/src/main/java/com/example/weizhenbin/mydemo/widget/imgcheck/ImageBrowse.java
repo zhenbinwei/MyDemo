@@ -1,7 +1,6 @@
 package com.example.weizhenbin.mydemo.widget.imgcheck;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.opengl.GLES10;
 import android.os.Bundle;
@@ -184,7 +183,6 @@ public class ImageBrowse extends Fragment implements ViewPager.OnPageChangeListe
         @Override
         public View instantiateItem(ViewGroup container, final int position) {
             ImageItemView img = new ImageItemView(container.getContext());
-            img.setBackgroundColor(Color.BLACK);
             img.setImageUrl(urls.get(position));
             container.addView(img, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             img.setOnClick(new View.OnClickListener() {

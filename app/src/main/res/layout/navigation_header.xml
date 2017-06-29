@@ -3,8 +3,9 @@
     xmlns:music="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimaryShallow"
-    android:layout_height="180dp">
+    android:background="@color/colorPrimary"
+    android:paddingTop="25dp"
+    android:layout_height="205dp">
 <LinearLayout
     android:id="@+id/ll_music"
     android:layout_width="match_parent"

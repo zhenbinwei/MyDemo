@@ -28,16 +28,15 @@ public class CommonToolbar {
     }
 
     public static Toolbar getToolBar(Activity activity){
-        //return (Toolbar) activity.findViewById(R.id.toolbar);
         Toolbar toolbar= (Toolbar) activity.findViewById(R.id.toolbar);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP) {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT) {
             toolbar.setPadding(0, Tools.getStatusBarHeight(activity), 0, 0);
         }
         return toolbar;
     }
     public static Toolbar getToolBar(View view){
         Toolbar toolbar= (Toolbar) view.findViewById(R.id.toolbar);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP) {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT) {
             toolbar.setPadding(0, Tools.getStatusBarHeight(view.getContext()), 0, 0);
         }
         return  toolbar;

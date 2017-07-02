@@ -216,6 +216,7 @@ public class MusicServiceControl {
         String getSongname();
         String getDataPath();
         String getSingername();
+        String getAlbumpicBig();
         int getSongid();
     }
 

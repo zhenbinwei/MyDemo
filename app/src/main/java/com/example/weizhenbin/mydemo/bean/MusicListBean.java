@@ -139,6 +139,11 @@ public class MusicListBean {
                 }
 
                 @Override
+                public String getAlbumpicBig() {
+                    return albumpic_big;
+                }
+
+                @Override
                 public int getSongid() {
                     return songid;
                 }

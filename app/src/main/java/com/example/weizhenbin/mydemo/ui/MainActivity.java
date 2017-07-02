@@ -1,6 +1,7 @@
 package com.example.weizhenbin.mydemo.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -80,19 +81,17 @@ public class MainActivity extends BaseActivity implements MusicServiceControl.On
         tvSongname= (TextView) nvHeadView.findViewById(R.id.tv_songname);
         llMusic= (LinearLayout) nvHeadView.findViewById(R.id.ll_music);
         MusicServiceControl.getServiceControl().addListener(this);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            dlContent.setFitsSystemWindows(true);
+            dlContent.setClipToPadding(false);
+        }
     }
 
     @Override
     protected void initData() {
 
     }
-   /*  private  ScaleAnimation moveToViewLocation() {
-        ScaleAnimation scaleAnimation=new ScaleAnimation(0.1f, 1.0f, 0.1f, 1f,
-                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                0.0f);
-        scaleAnimation.setDuration(500);
-        return scaleAnimation;
-    }*/
+
     private TranslateAnimation moveToViewLocation() {
         TranslateAnimation transformation=new TranslateAnimation( Animation.RELATIVE_TO_SELF,-1,Animation.RELATIVE_TO_SELF,0,
                 Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
@@ -240,6 +239,12 @@ public class MainActivity extends BaseActivity implements MusicServiceControl.On
                 }
             }
         });
+        tvSongname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicDetailActivity.startActivity(MainActivity.this);
+            }
+        });
     }
 
     @Override
@@ -302,20 +307,26 @@ public class MainActivity extends BaseActivity implements MusicServiceControl.On
 
     @Override
     public void onMusicChange() {
-        if(getServiceControl().getMusicInfo()!=null) {
-            if(llMusic.getVisibility()==View.GONE){
-                llMusic.startAnimation(moveToViewLocation());
-                llMusic.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(getServiceControl().getMusicInfo()!=null) {
+                    if(llMusic.getVisibility()==View.GONE){
+                        llMusic.startAnimation(moveToViewLocation());
+                        llMusic.setVisibility(View.VISIBLE);
+                    }
+                    tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
+                    if(MusicServiceControl.getServiceControl().getStatus()==MusicService.STATUS_ISPLAYING){
+                        ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
+                    }else {
+                        ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
+                    }
+                }else {
+                    llMusic.setVisibility(View.GONE);
+                }
             }
-            tvSongname.setText( MusicServiceControl.getServiceControl().getMusicInfo().getSongname());
-            if(MusicServiceControl.getServiceControl().getStatus()==MusicService.STATUS_ISPLAYING){
-                ivPlay.setImageResource(R.drawable.ic_pause_white_36dp);
-            }else {
-                ivPlay.setImageResource(R.drawable.ic_play_arrow_white_36dp);
-            }
-        }else {
-            llMusic.setVisibility(View.GONE);
-        }
+        });
+
     }
 
     @Override

@@ -8,5 +8,9 @@
 
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
-
+    <!-- toolbar菜单样式 -->
+    <style name="ToolbarTheme" parent="AppTheme">
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
 </resources>

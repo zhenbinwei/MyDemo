@@ -131,6 +131,11 @@
             android:theme="@style/ColorTranslucentTheme"
             >
         </activity>
+        <activity android:name="com.example.weizhenbin.mydemo.ui.MusicDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ColorTranslucentTheme"
+            >
+        </activity>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

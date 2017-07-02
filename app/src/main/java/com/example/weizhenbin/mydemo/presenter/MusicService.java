@@ -63,7 +63,7 @@ public class MusicService extends Service {
         }
 
        @Override
-       public int getStatus() throws RemoteException {
+       public  int  getStatus()  throws RemoteException {
            if(!isInit){
                return STATUS_NO_INIT;
            }else if(mediaPlayer!=null){

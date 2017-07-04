@@ -149,6 +149,10 @@ public class MusicServiceControl {
         }
     }
 
+    public List<? extends MusicInfo> getMusicInfos() {
+        return musicInfos;
+    }
+
     public void previous(){
         previousIndex=mCurrentIndex;
         mCurrentIndex--;

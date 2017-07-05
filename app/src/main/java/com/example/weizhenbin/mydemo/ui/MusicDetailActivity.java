@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,7 +32,6 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
 
     Toolbar toolbar;
     LinearLayout llMusic;
-    ImageView ivPic;
     ImageView ivPrevious,ivPlay,ivNext;
     ViewPager viewPager;
     ImageView ivBg;
@@ -43,7 +41,6 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
         toolbar= CommonToolbar.getToolBar(this);
         toolbar.setBackgroundColor(Color.parseColor("#01000000"));
         llMusic= (LinearLayout) findViewById(R.id.ll_music);
-        ivPic= (ImageView) findViewById(R.id.iv_pic);
         ivPrevious= (ImageView) findViewById(R.id.iv_previous);
         ivNext= (ImageView) findViewById(R.id.iv_next);
         ivPlay= (ImageView) findViewById(R.id.iv_play);
@@ -66,26 +63,6 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
             toolbar.setTitle(musicInfo.getSongname());
             toolbar.setSubtitle(musicInfo.getSingername());
             if(!TextUtils.isEmpty(musicInfo.getAlbumpicBig())){
-               /* Glide.with(MusicDetailActivity.this).load(musicInfo.getAlbumpicBig()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        ivPic.setImageBitmap(resource);
-                        Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-                            @Override
-                            public void onGenerated(Palette palette) {
-                                Palette.Swatch a = palette.getDominantSwatch();//getMutedSwatch();
-                                if(a!=null) {
-                                   llMusic.setBackgroundColor(a.getRgb());
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onLoadStarted(Drawable placeholder) {
-                        super.onLoadStarted(placeholder);
-                    }
-                });*/
                 Glide.with(MusicDetailActivity.this).load(musicInfo.getAlbumpicBig())
                         .bitmapTransform(new BlurTransformation(MusicDetailActivity.this,23,4)).into(ivBg);
             }
@@ -136,14 +113,12 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
     class ViewPageAdapter extends PagerAdapter{
 
         List<? extends MusicServiceControl.MusicInfo> musicInfos;
-        List<View> views=new ArrayList<>();
-        LayoutInflater layoutInflater;
+        List<MusicPageItemView> views=new ArrayList<>();
 
         public ViewPageAdapter(Context context,List<? extends MusicServiceControl.MusicInfo> musicInfos) {
             this.musicInfos = musicInfos;
-            layoutInflater=LayoutInflater.from(context);
             for (int i = 0; i < 5; i++) {
-                views.add(layoutInflater.inflate(R.layout.music_page_item,null));
+                views.add(new MusicPageItemView(context));
             }
         }
 
@@ -159,7 +134,8 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View v=views.get(position%5);
+            MusicPageItemView v=views.get(position%5);
+            v.setMusicInfo(musicInfos.get(position));
             container.addView(v);
             return v;
         }
@@ -170,4 +146,6 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
             container.removeView(v);
         }
     }
+
+
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -141,6 +142,7 @@ public class MusicServiceControl {
     }
 
     private void notifyChange(){
+        Log.d("MusicServiceControl", "android.os.Process.myPid():" + Process.myPid());
         if(onMusicChangeListeners!=null){
             for (OnMusicChangeListener changeListener:onMusicChangeListeners
                  ) {

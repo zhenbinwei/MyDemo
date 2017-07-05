@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.weizhenbin.mydemo.IMusicAidlCallback;
 import com.example.weizhenbin.mydemo.IMusicAidlInterface;
@@ -67,6 +68,7 @@ public class MusicService extends Service {
            if(!isInit){
                return STATUS_NO_INIT;
            }else if(mediaPlayer!=null){
+               Log.d("MusicBinder", "mediaPlayer.isPlaying():" + mediaPlayer.isPlaying());
                if(mediaPlayer.isPlaying()){
                    return STATUS_ISPLAYING;
                }else {

@@ -2,11 +2,9 @@ package com.example.weizhenbin.mydemo.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.weizhenbin.mydemo.base.BaseActivity;
 import com.example.weizhenbin.mydemo.presenter.MusicServiceControl;
 import com.example.weizhenbin.mydemo.widget.CommonToolbar;
@@ -26,6 +22,8 @@ import com.weizhenbin.show.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * Created by weizhenbin on 17/7/1.
@@ -38,16 +36,19 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
     ImageView ivPic;
     ImageView ivPrevious,ivPlay,ivNext;
     ViewPager viewPager;
+    ImageView ivBg;
     @Override
     protected void initView() {
         setContentView(R.layout.activity_music_detail);
         toolbar= CommonToolbar.getToolBar(this);
+        toolbar.setBackgroundColor(Color.parseColor("#01000000"));
         llMusic= (LinearLayout) findViewById(R.id.ll_music);
         ivPic= (ImageView) findViewById(R.id.iv_pic);
         ivPrevious= (ImageView) findViewById(R.id.iv_previous);
         ivNext= (ImageView) findViewById(R.id.iv_next);
         ivPlay= (ImageView) findViewById(R.id.iv_play);
         viewPager= (ViewPager) findViewById(R.id.music_page);
+        ivBg= (ImageView) findViewById(R.id.bg);
         MusicServiceControl.getServiceControl().addListener(this);
 
     }
@@ -65,7 +66,7 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
             toolbar.setTitle(musicInfo.getSongname());
             toolbar.setSubtitle(musicInfo.getSingername());
             if(!TextUtils.isEmpty(musicInfo.getAlbumpicBig())){
-                Glide.with(MusicDetailActivity.this).load(musicInfo.getAlbumpicBig()).asBitmap().into(new SimpleTarget<Bitmap>() {
+               /* Glide.with(MusicDetailActivity.this).load(musicInfo.getAlbumpicBig()).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         ivPic.setImageBitmap(resource);
@@ -75,7 +76,6 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
                                 Palette.Swatch a = palette.getDominantSwatch();//getMutedSwatch();
                                 if(a!=null) {
                                    llMusic.setBackgroundColor(a.getRgb());
-                                    toolbar.setBackgroundColor(a.getRgb());
                                 }
                             }
                         });
@@ -85,7 +85,9 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
                     public void onLoadStarted(Drawable placeholder) {
                         super.onLoadStarted(placeholder);
                     }
-                });
+                });*/
+                Glide.with(MusicDetailActivity.this).load(musicInfo.getAlbumpicBig())
+                        .bitmapTransform(new BlurTransformation(MusicDetailActivity.this,23,4)).into(ivBg);
             }
         }
     }
@@ -102,6 +104,12 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
             @Override
             public void onClick(View v) {
                 MusicServiceControl.getServiceControl().previous();
+            }
+        });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

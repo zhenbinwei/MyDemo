@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -35,6 +37,7 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
     ImageView ivPrevious,ivPlay,ivNext;
     ViewPager viewPager;
     ImageView ivBg;
+    ImageView ivAction;
     @Override
     protected void initView() {
         setContentView(R.layout.activity_music_detail);
@@ -46,6 +49,7 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
         ivPlay= (ImageView) findViewById(R.id.iv_play);
         viewPager= (ViewPager) findViewById(R.id.music_page);
         ivBg= (ImageView) findViewById(R.id.bg);
+        ivAction= (ImageView) findViewById(R.id.iv_action);
         MusicServiceControl.getServiceControl().addListener(this);
 
     }
@@ -54,6 +58,7 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
     protected void initData() {
         setMusicInfo();
         viewPager.setAdapter(new ViewPageAdapter(MusicDetailActivity.this,MusicServiceControl.getServiceControl().getMusicInfos()));
+        viewPager.setCurrentItem(MusicServiceControl.getServiceControl().getCurrentIndex());
     }
 
     private void setMusicInfo() {
@@ -89,8 +94,38 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
                 finish();
             }
         });
-    }
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d("MusicDetailActivity", "position:" + position);
+                MusicServiceControl.getServiceControl().setmCurrentIndex(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Log.d("MusicDetailActivity", "state:" + state);
+                Log.d("MusicDetailActivity", "ivAction.getRotation():" + ivAction.getRotationX()+";"+ivAction.getRotationY());
+                if(state==1){
+                    ivAction.startAnimation(getAnimation(0,-30,0,0));
+                }else if(state==0){
+                    ivAction.startAnimation(getAnimation(-30,0,0,0));
+                }
+            }
+        });
+    }
+    public RotateAnimation getAnimation(float fromDegrees, float toDegrees, float pivotX, float pivotY){
+        RotateAnimation rotateAnimation=new RotateAnimation(fromDegrees,toDegrees,pivotX,pivotY);
+        rotateAnimation.setDuration(300);
+        rotateAnimation.setFillAfter(true);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        return rotateAnimation;
+    }
 
     public static void startActivity(Context context){
 

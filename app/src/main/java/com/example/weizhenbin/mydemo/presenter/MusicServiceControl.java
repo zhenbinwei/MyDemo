@@ -137,10 +137,17 @@ public class MusicServiceControl {
          if(musicInfos!=null&&mCurrentIndex<musicInfos.size()-1){
              musicInfo=musicInfos.get(mCurrentIndex);
              start(musicInfo);
-
          }
     }
 
+    public void setmCurrentIndex(int position){
+        previousIndex=mCurrentIndex;
+        mCurrentIndex=position;
+        if(musicInfos!=null&&mCurrentIndex<musicInfos.size()-1){
+            musicInfo=musicInfos.get(mCurrentIndex);
+            start(musicInfo);
+        }
+    }
     private void notifyChange(){
         Log.d("MusicServiceControl", "android.os.Process.myPid():" + Process.myPid());
         if(onMusicChangeListeners!=null){

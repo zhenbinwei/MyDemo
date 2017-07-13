@@ -51,7 +51,6 @@ public class MusicDetailActivity extends BaseActivity implements MusicServiceCon
         ivBg= (ImageView) findViewById(R.id.bg);
         ivAction= (ImageView) findViewById(R.id.iv_action);
         MusicServiceControl.getServiceControl().addListener(this);
-
     }
 
     @Override
